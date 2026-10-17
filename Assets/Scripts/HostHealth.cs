@@ -3,7 +3,8 @@ using System;
 
 public class HostHealth : MonoBehaviour
 {
-    [SerializeField] int health = 10;
+    [SerializeField] private LevelConfig levelConfig;
+    private int health;
     public event Action<int> HealthChanged;
     public event Action Died;
 
@@ -32,13 +33,9 @@ public class HostHealth : MonoBehaviour
         }
         Debug.Log("Current health: " + health);
     }
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        health = levelConfig.InitialHostHealth;
+        HealthChanged?.Invoke(health);
     }
 }

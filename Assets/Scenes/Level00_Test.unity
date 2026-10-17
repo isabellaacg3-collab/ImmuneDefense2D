@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be7b800fb4cc864b9265e25ca21d07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HostHealth
-  health: 20
+  levelConfig: {fileID: 11400000, guid: fdc151bdd9919934b8068a1727f6c7cf, type: 2}
 --- !u!1 &125532752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,10 +2405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveController
   gameState: {fileID: 1490437553}
   spawner: {fileID: 832065557}
-  waves:
-  - {fileID: 11400000, guid: 9068b297aef77ac4eb095d1e6bc8c73b, type: 2}
-  - {fileID: 11400000, guid: 1f44f4bbac11bd04b8b42066f1005505, type: 2}
-  - {fileID: 11400000, guid: 779be752d4e858847aee07df10131cbb, type: 2}
+  levelConfig: {fileID: 11400000, guid: fdc151bdd9919934b8068a1727f6c7cf, type: 2}
 --- !u!114 &1490437556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2421,7 +2418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a26ed4c31bdc047bc9b7f30403c6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ImmunePoints
-  config: {fileID: 11400000, guid: 026cf9662ddffb74fbb683d0fe28fe1d, type: 2}
+  levelConfig: {fileID: 11400000, guid: fdc151bdd9919934b8068a1727f6c7cf, type: 2}
   points: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ImmunePoints : MonoBehaviour
 {
-    [SerializeField] ResourceConfig config;
+    [SerializeField] private LevelConfig levelConfig;
     [SerializeField] int points;
     public int Points
     {
@@ -15,7 +15,7 @@ public class ImmunePoints : MonoBehaviour
     public event Action<int> PointsChanged;
     private void Awake()
     {
-        points = config.InitialImmunePoints;
+        points = levelConfig.ResourceConfig.InitialImmunePoints;
         PointsChanged?.Invoke(points);
     }
     [ContextMenu("Test Spend")]
