@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using Unity.VisualScripting;
 
 [CreateAssetMenu(menuName = "ImmuneDefense/Level Config")]
 public class LevelConfig : ScriptableObject
@@ -9,6 +7,22 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private List<WaveConfig> waves = new List<WaveConfig>();
     [SerializeField] private ResourceConfig resourceConfig;
     [SerializeField] private int initialHostHealth = 20;
+    [SerializeField] private List<WaveClearEventConfig> waveClearEvents = new List<WaveClearEventConfig>();
+    [SerializeField] private TutorialCardConfig openingTutorialCard;
+    public TutorialCardConfig OpeningTutorialCard
+    {
+        get
+        {
+            return openingTutorialCard;
+        }
+    }
+    public IReadOnlyList<WaveClearEventConfig> WaveClearEvents
+    {
+        get
+        {
+            return waveClearEvents;
+        }
+    }
     public IReadOnlyList<WaveConfig> Waves
     {
         get

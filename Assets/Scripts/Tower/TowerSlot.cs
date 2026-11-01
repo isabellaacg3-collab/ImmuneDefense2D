@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class TowerSlot : MonoBehaviour,IPointerClickHandler
 {
@@ -13,6 +14,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     {
         Debug.Log(TryBuild());
     }
+    public event Action<TowerAttack> TowerBuilt;
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button != PointerEventData.InputButton.Left)
@@ -23,7 +25,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     }
     public void OpenBuildMenu()
     {
-        if (!gamestate.IsPlaying)
+        if (!gamestate.CanBuild)
         {
             return;
         }
@@ -40,7 +42,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     }
     public bool TryBuild()
     {
-        if (!gamestate.IsPlaying)
+        if (!gamestate.CanBuild)
         {
             return false;
         }
@@ -54,6 +56,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         }
         currentTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
         currentTower.Initialize(gamestate);
+        TowerBuilt?.Invoke(currentTower);
         return true;
     }
 }

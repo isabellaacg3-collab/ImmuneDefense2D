@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -7,12 +7,15 @@ public enum LevelState
 {
     Playing,
     Victory,
-    Defeat
+    Defeat,
+    Preparing
 }
 public class GameStateController : MonoBehaviour
 {
     [SerializeField] private HostHealth host;
-    [SerializeField] private LevelState state = LevelState.Playing;
+    [SerializeField] private LevelState state = LevelState.Preparing;
+    private Dictionary<int, PausePolicyConfig> activePauses = new Dictionary<int, PausePolicyConfig>();
+    private int nextPauseId = 1;
     public bool IsPlaying
     {
         get
@@ -27,9 +30,61 @@ public class GameStateController : MonoBehaviour
             return state;
         }
     }
+    public bool CanSimulate
+    {
+        get
+        {
+            if(state != LevelState.Playing)
+            {
+                return false;
+            }
+            foreach (PausePolicyConfig policy in activePauses.Values)
+            {
+                if (policy.PauseSimulation)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    public bool CanBuild
+    {
+        get
+        {
+            if (state != LevelState.Preparing && state != LevelState.Playing)
+            {
+                return false;
+            }
+            foreach(PausePolicyConfig policy in activePauses.Values)
+            {
+                if(policy.BlockWorldInput)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    public bool CanDeploy
+    {
+        get
+        {
+            return state == LevelState.Playing && CanBuild;
+        }
+    }
+    public void BeginBattle()
+    {
+        if (state != LevelState.Preparing)
+        {
+            return;
+        }
+        state = LevelState.Playing;
+        StateChanged?.Invoke(state);
+    }
     public void Win()
     {
-        if(state != LevelState.Playing)
+        if (state != LevelState.Playing)
         {
             return;
         }
@@ -39,7 +94,7 @@ public class GameStateController : MonoBehaviour
     public event Action<LevelState> StateChanged;
     private void HandleHostDied()
     {
-        if(state != LevelState.Playing)
+        if (state != LevelState.Playing)
         {
             return;
         }
@@ -53,18 +108,24 @@ public class GameStateController : MonoBehaviour
     }
     private void OnDisable()
     {
-        if(host != null)
+        if (host != null)
         {
             host.Died -= HandleHostDied;
         }
     }
-    void Start()
+    public int RequestPause(PausePolicyConfig policy)
     {
-        
+        if(policy == null)
+        {
+            return 0;
+        }
+        int id = nextPauseId;
+        nextPauseId++;
+        activePauses.Add(id, policy);
+        return id;
     }
-
-    void Update()
+    public void ReleasePause(int id)
     {
-        
+        activePauses.Remove(id);
     }
 }

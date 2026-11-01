@@ -23,6 +23,11 @@ public class ImmunePoints : MonoBehaviour
     {
         Debug.Log(TrySpend(60));
     }
+    [ContextMenu("Test Grant")]
+    private void TestGrant()
+    {
+        Grant(100);
+    }
     public bool TrySpend(int cost)
     {
         if(cost < 0)
@@ -39,5 +44,14 @@ public class ImmunePoints : MonoBehaviour
             PointsChanged?.Invoke(points);
             return true;
         }
+    }
+    public void Grant(int amount)
+    {
+        if(amount <= 0)
+        {
+            return;
+        }
+        points += amount;
+        PointsChanged?.Invoke(points);
     }
 }

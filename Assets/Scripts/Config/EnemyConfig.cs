@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ImmuneDefense/Enemy Config")]
 public class EnemyConfig : ScriptableObject
 {
-    [SerializeField] int maxHealth = 3;
-    [SerializeField] float moveSpeed = 2f;
-    [SerializeField] int hostDamage = 1;
+    [SerializeField] int maxHealth;
+    [SerializeField] float moveSpeed;
+    [SerializeField] int hostDamage;
 
     public int MaxHealth
     {

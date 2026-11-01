@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private EnemyConfig config;
-    [SerializeField] private int health;
+    private int health;
 
     public void TakeDamage(int damage)
     {
@@ -24,15 +24,5 @@ public class EnemyHealth : MonoBehaviour
     private void Awake()
     {
         health = config.MaxHealth;
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }

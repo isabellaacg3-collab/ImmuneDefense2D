@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5fe14d86ac5f84587297e883f425f5, type: 3}
+  m_Name: Level01Config
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  waves:
+  - {fileID: 11400000, guid: 7949cd0512e74164fba3c02eddd45edc, type: 2}
+  - {fileID: 11400000, guid: 0a9e2960069ea21469d746d12f547048, type: 2}
+  - {fileID: 11400000, guid: c43e381c970ae53428b176021d16dd81, type: 2}
+  - {fileID: 11400000, guid: 994f8bc2021af34439c65a120525ee92, type: 2}
+  - {fileID: 11400000, guid: 740c0fc9478b407c2733bc2d4969b2b1, type: 2}
+  - {fileID: 11400000, guid: cd4911d406da24594aa380a90426b98c, type: 2}
+  resourceConfig: {fileID: 11400000, guid: dfd0bb7998462444ab736effc7c5f595, type: 2}
+  initialHostHealth: 20
+  waveClearEvents:
+  - {fileID: 11400000, guid: 93d268dc16f550245a8147fed1ed1341, type: 2}
+  - {fileID: 11400000, guid: 6c98af7b804dfb046bb1ca0dcaa822ab, type: 2}
+  - {fileID: 11400000, guid: 3231f8f4b465e4442aa1900ab63ff04b, type: 2}
+  - {fileID: 11400000, guid: 32fb9ad5227ce3a4596fc3aed2589d26, type: 2}
+  openingTutorialCard: {fileID: 11400000, guid: eb7fd5f44e745534e87d4d867f32cbf2, type: 2}

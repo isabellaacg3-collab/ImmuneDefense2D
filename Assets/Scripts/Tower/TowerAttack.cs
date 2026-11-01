@@ -26,11 +26,15 @@ public class TowerAttack : MonoBehaviour
     [ContextMenu("Test TowerDamage")]
     private void Attack()
     {
-        if (!gameState.IsPlaying)
+        if (!gameState.CanSimulate)
         {
             return;
         }
         if (target == null)
+        {
+            return;
+        }
+        if (!target.GetComponent<EnemyMovement>().CanBeTargeted)
         {
             return;
         }
@@ -42,7 +46,6 @@ public class TowerAttack : MonoBehaviour
         target.TakeDamage(attackDamage);
         attackTimer = 0;
     }
-
     private void FindTarget()
     {
         EnemyHealth[] enemies = FindObjectsByType<EnemyHealth>(FindObjectsSortMode.None);
@@ -50,6 +53,10 @@ public class TowerAttack : MonoBehaviour
         float nearestDistance = attackRange;
         foreach(EnemyHealth enemy in enemies)
         {
+            if (!enemy.GetComponent<EnemyMovement>().CanBeTargeted)
+            {
+                continue; 
+            }
             float tempDis = Vector3.Distance(transform.position, enemy.transform.position);
             if(tempDis <= nearestDistance)
             {
@@ -58,7 +65,6 @@ public class TowerAttack : MonoBehaviour
             }
         }
     }
-
     private void Awake()
     {
         attackDamage = config.AttackDamage;
@@ -69,15 +75,14 @@ public class TowerAttack : MonoBehaviour
     {
         attackTimer = attackInterval;
     }
-
     void Update()
     {
-        if (!gameState.IsPlaying)
+        if (!gameState.CanSimulate)
         {
             return;
         }
         attackTimer += Time.deltaTime;
-        if (target == null || Vector3.Distance(transform.position,target.transform.position) > attackRange)
+        if (target == null || !target.GetComponent<EnemyMovement>().CanBeTargeted || Vector3.Distance(transform.position,target.transform.position) > attackRange)
         {
             FindTarget();
             if(target == null)

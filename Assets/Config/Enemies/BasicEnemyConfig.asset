@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BasicEnemyConfig
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
   maxHealth: 10
-  moveSpeed: 2
+  moveSpeed: 1
   hostDamage: 1

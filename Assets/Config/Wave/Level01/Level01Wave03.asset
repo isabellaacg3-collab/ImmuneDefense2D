@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2205ea55944be47a6581524954092a, type: 3}
+  m_Name: Level01Wave03
+  m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
+  groups:
+  - startOffsetSeconds: 0
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.51875
+    spawnPointId: spawn_01
+    hostPointId: host_02
+  - startOffsetSeconds: 1.35
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 4
+    spawnInterval: 2.3625
+    spawnPointId: spawn_03
+    hostPointId: host_01
+  - startOffsetSeconds: 5.2875
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.125
+    spawnPointId: spawn_02
+    hostPointId: host_03
+  - startOffsetSeconds: 8.2125
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.74375
+    spawnPointId: spawn_03
+    hostPointId: host_02
+  - startOffsetSeconds: 10.2375
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 2.08125
+    spawnPointId: spawn_01
+    hostPointId: host_03
+  - startOffsetSeconds: 14.175
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 3
+    spawnInterval: 0.95625
+    spawnPointId: spawn_03
+    hostPointId: host_01
+  - startOffsetSeconds: 17.1
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.35
+    spawnPointId: spawn_02
+    hostPointId: host_01
+  startAtSeconds: 0
+  delayAfterPreviousWave: 3.375

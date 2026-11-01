@@ -1,13 +1,19 @@
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ImmuneDefense/Wave Config")]
 public class WaveConfig : ScriptableObject
 {
+    [SerializeField] private List<SpawnGroupConfig> groups = new List<SpawnGroupConfig>();
     [SerializeField] float startAtSeconds = 5f;
-    [SerializeField] GameObject enemyPrefab;
-    [SerializeField] int enemyCount = 5;
-    [SerializeField] float spawnInterval = 2f;
+    [SerializeField] private float delayAfterPreviousWave = 0f;
+    public IReadOnlyList<SpawnGroupConfig> Groups
+    {
+        get
+        {
+            return groups;
+        }
+    }
     public float StartAtSeconds
     {
         get
@@ -15,25 +21,12 @@ public class WaveConfig : ScriptableObject
             return startAtSeconds;
         }
     }
-    public GameObject EnemyPrefab
+    // Additional simulation time after the previous wave and its flow event finish.
+    public float DelayAfterPreviousWave
     {
         get
         {
-            return enemyPrefab;
-        }
-    }
-    public int EnemyCount
-    {
-        get
-        {
-            return enemyCount;
-        }
-    }
-    public float SpawnInterval
-    {
-        get
-        {
-            return spawnInterval;
+            return delayAfterPreviousWave;
         }
     }
 }
