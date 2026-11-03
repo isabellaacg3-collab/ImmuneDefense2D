@@ -9,7 +9,7 @@ public class HostHealthUI : MonoBehaviour
 
     private void RefreshHealth(int value)
     {
-        healthText.text = "HP: " + value;
+        healthText.text = "生命：" + value;
     }
     private void OnEnable()
     {

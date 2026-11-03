@@ -7,7 +7,7 @@ public class ImmunePointsUI : MonoBehaviour
     [SerializeField] TMP_Text pointsText;
     private void RefreshPoints(int value)
     {
-        pointsText.text = "IP: " + value;
+        pointsText.text = "ID点：" + value;
     }
     private void OnEnable()
     {
