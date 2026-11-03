@@ -12,6 +12,7 @@ public class ReinforcementController : MonoBehaviour
     [SerializeField] private Transform testDeployPoint;
     [SerializeField] private Camera worldCamera;
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private WaveController waveController;
     private float cooldownRemaining = 0f;
     private bool isSelectingPosition = false;
     private bool isUnlocked = false;
@@ -222,5 +223,16 @@ public class ReinforcementController : MonoBehaviour
             return;
         }
         cooldownRemaining = Mathf.Max(0f, cooldownRemaining - Time.deltaTime);
+    }
+    private void OnEnable()
+    {
+        waveController.WaveCalledEarly += ResetCooldown;
+    }
+    private void OnDisable()
+    {
+        if (waveController != null)
+        {
+            waveController.WaveCalledEarly -= ResetCooldown;
+        }
     }
 }

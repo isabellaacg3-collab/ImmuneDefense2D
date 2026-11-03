@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
+  m_Name: RedBloodCellKnowledge
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
+  title: "红细胞"
+  body: "现实分类：非免疫细胞；氧运输细胞\n\n红细胞不是免疫细胞。它的主要功能是通过血红蛋白运输氧，并帮助维持血液的运输功能。\n\n来源：高中生物——血液组成与运输功能"

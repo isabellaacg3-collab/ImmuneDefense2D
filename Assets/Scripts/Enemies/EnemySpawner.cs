@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<ScenePointBinding> RealHostPoints = new List<ScenePointBinding>();
     private int spawningGroupCount = 0;
     private List<EnemyHealth> spawnedEnemies = new List<EnemyHealth>();
+    public event Action<EnemyConfig> EnemyEnteredCombat;
     public bool IsSpawning
     {
         get
@@ -72,6 +74,7 @@ public class EnemySpawner : MonoBehaviour
         EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
 
         movement.Initialize(waypoints,hostHealth,transform,exitPoint, gameState);
+        movement.EnteredCombat += HandleEnemyEnteredCombat;
     }
     public void StartWave(WaveConfig wave)
     {
@@ -129,5 +132,9 @@ public class EnemySpawner : MonoBehaviour
             }
             yield return null;
         }
+    }
+    private void HandleEnemyEnteredCombat(EnemyConfig config)
+    {
+        EnemyEnteredCombat?.Invoke(config);
     }
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ImmuneDefense/Tower Config")]
 public class TowerConfig : ScriptableObject
 {
-    [SerializeField] int attackDamage = 1;
-    [SerializeField] float attackInterval = 1f;
-    [SerializeField] float attackRange = 5f;
-    [SerializeField] int buildCost = 100;
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private float attackInterval = 1f;
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private int buildCost = 100;
+    [SerializeField] private TutorialCardConfig knowledgeCard;
     public int AttackDamage
     {
         get
@@ -34,6 +35,13 @@ public class TowerConfig : ScriptableObject
         get
         {
             return buildCost;
+        }
+    }
+    public TutorialCardConfig KnowledgeCard
+    {
+        get
+        {
+            return knowledgeCard;
         }
     }
 }

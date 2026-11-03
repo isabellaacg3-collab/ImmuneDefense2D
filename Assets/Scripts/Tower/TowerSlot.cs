@@ -8,6 +8,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     [SerializeField] private ImmunePoints immunePoints;
     [SerializeField] private TowerAttack towerPrefab;
     [SerializeField] private BuildMenuUI buildMenu;
+    [SerializeField] private TowerActionUI towerActionUI;
     private TowerAttack currentTower;
     [ContextMenu("Test Build")]
     private void TestBuild()
@@ -31,11 +32,13 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         }
         if(currentTower != null)
         {
-            //tower panel
+            buildMenu.Close();
+            towerActionUI.Open(currentTower);
             return;
         }
         else
         {
+            towerActionUI.Close();
             buildMenu.Open(this);
         }
 

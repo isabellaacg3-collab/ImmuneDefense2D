@@ -3,10 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ImmuneDefense/Enemy Config")]
 public class EnemyConfig : ScriptableObject
 {
-    [SerializeField] int maxHealth;
-    [SerializeField] float moveSpeed;
-    [SerializeField] int hostDamage;
-
+    [SerializeField] private int maxHealth;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private int hostDamage;
+    [SerializeField] private TutorialCardConfig firstAppearanceCard;
     public int MaxHealth
     {
         get
@@ -26,6 +26,13 @@ public class EnemyConfig : ScriptableObject
         get
         {
             return hostDamage;
+        }
+    }
+    public TutorialCardConfig FirstAppearanceCard
+    {
+        get
+        {
+            return firstAppearanceCard;
         }
     }
 }

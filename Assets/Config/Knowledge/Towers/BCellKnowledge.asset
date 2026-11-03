@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
+  m_Name: BCellKnowledge
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
+  title: "B 细胞"
+  body: "现实分类：免疫细胞；适应性免疫\n\nB 细胞属于适应性免疫系统。受到合适刺激后，B 细胞可以增殖分化；其中浆细胞能够产生抗体，抗体可以特异性识别并结合相应抗原。\n\n来源：高中生物——体液免疫"

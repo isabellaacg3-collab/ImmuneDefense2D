@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using System;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class EnemyMovement : MonoBehaviour
             return blockers.Count;
         }
     }
+    public event Action<EnemyConfig> EnteredCombat;
     private void ReachHost()
     {
         phase = MovePhase.Outgoing;
@@ -105,6 +107,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 case MovePhase.Incoming:
                     phase = MovePhase.Combat;
+                    EnteredCombat?.Invoke(config);
                     break;
                 case MovePhase.Combat:
                     currentWaypointIndex++;

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
+  m_Name: BasicEnemyFirstAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
+  title: "\u57FA\u7840\u654C\u4EBA"
+  body: "\u57FA\u7840\u654C\u4EBA\u6B63\u5728\u8FDB\u5165\u4E3B\u9053\u3002\u9632\u5FA1\u5854\u4F1A\u81EA\u52A8\u653B\u51FB\u5C04\u7A0B\u5185\u7684\u76EE\u6807\uFF0C\u6CE8\u610F\u9009\u62E9\u80FD\u591F\u8986\u76D6\u9053\u8DEF\u7684\u5854\u4F4D\u3002"

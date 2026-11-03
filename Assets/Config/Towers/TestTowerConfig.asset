@@ -16,3 +16,4 @@ MonoBehaviour:
   attackInterval: 1
   attackRange: 2
   buildCost: 100
+  knowledgeCard: {fileID: 11400000, guid: 055fff762bd68fc46a8ec953edd717bc, type: 2}

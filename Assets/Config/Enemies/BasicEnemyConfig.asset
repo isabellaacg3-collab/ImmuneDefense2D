@@ -15,3 +15,4 @@ MonoBehaviour:
   maxHealth: 10
   moveSpeed: 1
   hostDamage: 1
+  firstAppearanceCard: {fileID: 11400000, guid: a1177a447e16af24892c2973f610f2b4, type: 2}

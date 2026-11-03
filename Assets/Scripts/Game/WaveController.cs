@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
@@ -12,6 +13,32 @@ public class WaveController : MonoBehaviour
     private int nextWaveIndex = 0;
     private int lastClearedWave = 0;
     private float nextWaveReadySeconds = 0f;
+    public event Action WaveCalledEarly;
+    public bool CanCallNextWaveEarly
+    {
+        get
+        {
+            if (!(gameState.CanSimulate && gameState.CanBuild
+                && nextWaveIndex > 0 && nextWaveIndex < levelConfig.Waves.Count
+                && lastClearedWave == nextWaveIndex
+                && levelFlow.CanStartWave(nextWaveIndex + 1)))
+            {
+                return false;
+            }
+            WaveConfig wave = levelConfig.Waves[nextWaveIndex];
+            return elapsedSeconds < wave.StartAtSeconds || nextWaveReadySeconds < wave.DelayAfterPreviousWave;
+        }
+    }
+    public bool TryCallNextWaveEarly()
+    {
+        if (!CanCallNextWaveEarly)
+        {
+            return false;
+        }
+        StartNextWave();
+        WaveCalledEarly?.Invoke();
+        return true;
+    }
     private void CheckClearedWaves()
     {
         if(spawner.IsSpawning || spawner.AliveCount > 0)
@@ -23,6 +50,13 @@ public class WaveController : MonoBehaviour
             lastClearedWave++;
             levelFlow.HandleWaveCleared(lastClearedWave);
         }
+    }
+    private void StartNextWave()
+    {
+        WaveConfig wave = levelConfig.Waves[nextWaveIndex];
+        spawner.StartWave(wave);
+        nextWaveIndex++;
+        nextWaveReadySeconds = 0;
     }
     void Update()
     {
@@ -45,9 +79,7 @@ public class WaveController : MonoBehaviour
                 nextWaveReadySeconds += Time.deltaTime;
                 if (elapsedSeconds >= wave.StartAtSeconds && nextWaveReadySeconds >= wave.DelayAfterPreviousWave)
                 {
-                    spawner.StartWave(wave);
-                    nextWaveIndex++;
-                    nextWaveReadySeconds = 0f;
+                    StartNextWave();
                 }
             }
             else
