@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3a40d2259e0874439617e9dd080ebe3, type: 3}
-  m_Name: Level01_AfterWave01
-  m_EditorClassIdentifier: Assembly-CSharp::WaveClearEventConfig
-  afterWaveNumber: 1
+  m_Name: Level01_BeforeWave02
+  m_EditorClassIdentifier: Assembly-CSharp::WaveStartEventConfig
+  beforeWaveNumber: 2
   grantPoints: 200
   requiredTowerCount: 2
   pausePolicy: {fileID: 11400000, guid: 17139b92d9927a04b9ddd966f99ab4d6, type: 2}

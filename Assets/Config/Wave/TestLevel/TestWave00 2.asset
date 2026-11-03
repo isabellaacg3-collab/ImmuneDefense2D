@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: TestWave00 2
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
   startAtSeconds: 19
+  startIntervalSeconds: 0
+  earlyCallEnabled: 0
+  earlyCallWindowSeconds: 0
   enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
   enemyCount: 5
   spawnInterval: 2

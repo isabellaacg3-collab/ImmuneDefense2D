@@ -1,19 +1,19 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ImmuneDefense/Wave Clear Event")]
-public class WaveClearEventConfig : ScriptableObject
+[CreateAssetMenu(menuName = "ImmuneDefense/Wave Start Event")]
+public class WaveStartEventConfig : ScriptableObject
 {
-    [SerializeField] private int afterWaveNumber = 1;
+    [SerializeField] private int beforeWaveNumber = 2;
     [SerializeField] private int grantPoints = 100;
     [SerializeField] private int requiredTowerCount = 2;
     [SerializeField] private PausePolicyConfig pausePolicy;
     [SerializeField] private TutorialCardConfig tutorialCard;
     [SerializeField] private bool requireReinforcementDeployment = false;
-    public int AfterWaveNumber
+    public int BeforeWaveNumber
     {
         get
         {
-            return afterWaveNumber;
+            return beforeWaveNumber;
         }
     }
     public int GrantPoints

@@ -44,4 +44,6 @@ MonoBehaviour:
     spawnPointId: spawn_01
     hostPointId: host_02
   startAtSeconds: 0
-  delayAfterPreviousWave: 6
+  startIntervalSeconds: 29.4
+  earlyCallEnabled: 1
+  earlyCallWindowSeconds: 0

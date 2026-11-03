@@ -7,7 +7,7 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private List<WaveConfig> waves = new List<WaveConfig>();
     [SerializeField] private ResourceConfig resourceConfig;
     [SerializeField] private int initialHostHealth = 20;
-    [SerializeField] private List<WaveClearEventConfig> waveClearEvents = new List<WaveClearEventConfig>();
+    [SerializeField] private List<WaveStartEventConfig> waveStartEvents = new List<WaveStartEventConfig>();
     [SerializeField] private TutorialCardConfig openingTutorialCard;
     public TutorialCardConfig OpeningTutorialCard
     {
@@ -16,11 +16,11 @@ public class LevelConfig : ScriptableObject
             return openingTutorialCard;
         }
     }
-    public IReadOnlyList<WaveClearEventConfig> WaveClearEvents
+    public IReadOnlyList<WaveStartEventConfig> WaveStartEvents
     {
         get
         {
-            return waveClearEvents;
+            return waveStartEvents;
         }
     }
     public IReadOnlyList<WaveConfig> Waves

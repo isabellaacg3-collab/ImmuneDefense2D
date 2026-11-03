@@ -9,91 +9,84 @@ public class LevelFlowController : MonoBehaviour
     [SerializeField] private ImmunePoints immunePoints;
     [SerializeField] private TutorialCardUI tutorialCardUI;
     [SerializeField] private ReinforcementController reinforcementController;
-    private WaveClearEventConfig activeWaveEvent = null;
+    private WaveStartEventConfig activeWaveStartEvent = null;
     private int activePausedID = 0;
     private int placedTowerCount = 0;
-    private HashSet<int> completedWaveEvents = new HashSet<int>();
+    private HashSet<int> completedWaveStartEvents = new HashSet<int>();
     private bool hasDeploymentDuringEvent = false;
     private void HandleReinforcementDeployed()
     {
-        if(activeWaveEvent == null)
+        if(activeWaveStartEvent == null)
         {
             return;
         }
         hasDeploymentDuringEvent = true;
-        TryCompleteWaveEvent();
+        TryCompleteWaveStartEvent();
         Debug.Log("流程接收：援军部署");
     }
-    public void HandleWaveCleared(int waveNumber)
+    public bool TryPrepareWave(int waveNumber)
     {
-        Debug.Log($"第 {waveNumber} 波清场");
-        if(completedWaveEvents.Contains(waveNumber) || activeWaveEvent != null)
+        WaveStartEventConfig waveStartEvent = FindWaveStartEvent(waveNumber);
+        if(waveStartEvent == null)
         {
-            return;
+            return true;
         }
-        WaveClearEventConfig waveClearEvent = FindWaveClearEvent(waveNumber);
-        if(waveClearEvent == null)
+        if (completedWaveStartEvents.Contains(waveStartEvent.BeforeWaveNumber))
         {
-            return;
+            return true;
         }
-        activeWaveEvent = waveClearEvent;
+        if(activeWaveStartEvent != null)
+        {
+            return false;
+        }
+        activeWaveStartEvent = waveStartEvent;
         hasDeploymentDuringEvent = false;
-        if (waveClearEvent.RequireReinforcementDeployment)
+        if (waveStartEvent.RequireReinforcementDeployment)
         {
             reinforcementController.Unlock();
             reinforcementController.ResetCooldown();
         }
-        immunePoints.Grant(waveClearEvent.GrantPoints);
-        activePausedID = gameState.RequestPause(waveClearEvent.PausePolicy);
-        tutorialCardUI.Open(waveClearEvent.TutorialCard);
-        TryCompleteWaveEvent();
+        immunePoints.Grant(waveStartEvent.GrantPoints);
+        activePausedID = gameState.RequestPause(waveStartEvent.PausePolicy);
+        tutorialCardUI.Open(waveStartEvent.TutorialCard);
+        TryCompleteWaveStartEvent();
+        return completedWaveStartEvents.Contains(waveStartEvent.BeforeWaveNumber);
     }
-    private void TryCompleteWaveEvent()
+    private void TryCompleteWaveStartEvent()
     {
-        if(activeWaveEvent == null)
+        if(activeWaveStartEvent == null)
         {
             return;
         }
-        if(tutorialCardUI.IsOpen || placedTowerCount < activeWaveEvent.RequiredTowerCount)
+        if(tutorialCardUI.IsOpen || placedTowerCount < activeWaveStartEvent.RequiredTowerCount)
         {
             return;
         }
-        if(activeWaveEvent.RequireReinforcementDeployment && !hasDeploymentDuringEvent)
+        if(activeWaveStartEvent.RequireReinforcementDeployment && !hasDeploymentDuringEvent)
         {
             return;
         }
-        completedWaveEvents.Add(activeWaveEvent.AfterWaveNumber);
+        completedWaveStartEvents.Add(activeWaveStartEvent.BeforeWaveNumber);
         gameState.ReleasePause(activePausedID);
         activePausedID = 0;
-        activeWaveEvent = null;
+        activeWaveStartEvent = null;
     }
-    public bool AreAllWaveEventsCompleted()
+    public bool AreAllWaveStartEventsCompleted()
     {
-        foreach(WaveClearEventConfig config in levelConfig.WaveClearEvents)
+        foreach(WaveStartEventConfig config in levelConfig.WaveStartEvents)
         {
-            if (!completedWaveEvents.Contains(config.AfterWaveNumber))
+            if (!completedWaveStartEvents.Contains(config.BeforeWaveNumber))
             {
                 return false;
             }
         }
         return true;
     }
-    public bool CanStartWave(int waveNumber)
+    private WaveStartEventConfig FindWaveStartEvent(int waveNumber)
     {
-        foreach(WaveClearEventConfig config in levelConfig.WaveClearEvents)
+        foreach(WaveStartEventConfig config in levelConfig.WaveStartEvents)
         {
-            if(config.AfterWaveNumber < waveNumber && !completedWaveEvents.Contains(config.AfterWaveNumber))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    private WaveClearEventConfig FindWaveClearEvent(int waveNumber)
-    {
-        foreach(WaveClearEventConfig config in levelConfig.WaveClearEvents)
-        {
-            if(config.AfterWaveNumber == waveNumber)
+            if(config.BeforeWaveNumber == waveNumber)
             {
                 return config;
             }
@@ -108,7 +101,7 @@ public class LevelFlowController : MonoBehaviour
         {
             gameState.BeginBattle();
         }
-        TryCompleteWaveEvent();
+        TryCompleteWaveStartEvent();
     }
     private void OnEnable()
     {
@@ -116,7 +109,7 @@ public class LevelFlowController : MonoBehaviour
         {
             slot.TowerBuilt += HandleTowerBuilt;
         }
-        tutorialCardUI.Closed += TryCompleteWaveEvent;
+        tutorialCardUI.Closed += TryCompleteWaveStartEvent;
         reinforcementController.Deployed += HandleReinforcementDeployed; 
     }
     private void OnDisable()
@@ -125,7 +118,7 @@ public class LevelFlowController : MonoBehaviour
         {
             slot.TowerBuilt -= HandleTowerBuilt;
         }
-        tutorialCardUI.Closed -= TryCompleteWaveEvent;
+        tutorialCardUI.Closed -= TryCompleteWaveStartEvent;
         reinforcementController.Deployed -= HandleReinforcementDeployed;
     }
     private void Start()

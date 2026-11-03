@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cd4911d406da24594aa380a90426b98c, type: 2}
   resourceConfig: {fileID: 11400000, guid: dfd0bb7998462444ab736effc7c5f595, type: 2}
   initialHostHealth: 20
-  waveClearEvents:
+  waveStartEvents:
   - {fileID: 11400000, guid: 93d268dc16f550245a8147fed1ed1341, type: 2}
   - {fileID: 11400000, guid: 6c98af7b804dfb046bb1ca0dcaa822ab, type: 2}
   - {fileID: 11400000, guid: 3231f8f4b465e4442aa1900ab63ff04b, type: 2}

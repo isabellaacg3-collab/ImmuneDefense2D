@@ -140,4 +140,6 @@ MonoBehaviour:
     spawnPointId: spawn_03
     hostPointId: host_01
   startAtSeconds: 0
-  delayAfterPreviousWave: 11
+  startIntervalSeconds: 44.50295
+  earlyCallEnabled: 1
+  earlyCallWindowSeconds: 0

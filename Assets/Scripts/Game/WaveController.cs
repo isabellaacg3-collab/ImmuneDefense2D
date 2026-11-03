@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class WaveController : MonoBehaviour
 {
@@ -11,23 +9,34 @@ public class WaveController : MonoBehaviour
     [SerializeField] private LevelFlowController levelFlow;
     private float elapsedSeconds = 0f;
     private int nextWaveIndex = 0;
-    private int lastClearedWave = 0;
-    private float nextWaveReadySeconds = 0f;
+    private float lastWaveStartSeconds = 0f;
+    private bool startRequested = false;
+    private bool earlyCallRequested = false;
     public event Action WaveCalledEarly;
     public bool CanCallNextWaveEarly
     {
         get
         {
             if (!(gameState.CanSimulate && gameState.CanBuild
-                && nextWaveIndex > 0 && nextWaveIndex < levelConfig.Waves.Count
-                && lastClearedWave == nextWaveIndex
-                && levelFlow.CanStartWave(nextWaveIndex + 1)))
+                && !startRequested
+                && nextWaveIndex > 0 && nextWaveIndex < levelConfig.Waves.Count))
             {
                 return false;
             }
             WaveConfig wave = levelConfig.Waves[nextWaveIndex];
-            return elapsedSeconds < wave.StartAtSeconds || nextWaveReadySeconds < wave.DelayAfterPreviousWave;
+            float remaining = GetRemainingWaitSeconds(wave);
+            return wave.EarlyCallEnabled && remaining > 0f
+                && (wave.EarlyCallWindowSeconds <= 0f || remaining <= wave.EarlyCallWindowSeconds);
         }
+    }
+    private float GetRemainingWaitSeconds(WaveConfig wave)
+    {
+        float earliestStart = wave.StartAtSeconds;
+        if (nextWaveIndex > 0)
+        {
+            earliestStart = Mathf.Max(earliestStart, lastWaveStartSeconds + wave.StartIntervalSeconds);
+        }
+        return Mathf.Max(0f, earliestStart - elapsedSeconds);
     }
     public bool TryCallNextWaveEarly()
     {
@@ -35,28 +44,44 @@ public class WaveController : MonoBehaviour
         {
             return false;
         }
-        StartNextWave();
-        WaveCalledEarly?.Invoke();
+        startRequested = true;
+        earlyCallRequested = true;
         return true;
     }
-    private void CheckClearedWaves()
+    private void ProcessWaveStartRequest()
     {
-        if(spawner.IsSpawning || spawner.AliveCount > 0)
+        if (!startRequested)
         {
             return;
         }
-        while (lastClearedWave < nextWaveIndex)
+
+        if (!levelFlow.TryPrepareWave(nextWaveIndex + 1))
         {
-            lastClearedWave++;
-            levelFlow.HandleWaveCleared(lastClearedWave);
+            return;
+        }
+
+        if (!gameState.CanSimulate)
+        {
+            return;
+        }
+
+        bool wasEarly = earlyCallRequested;
+        startRequested = false;
+        earlyCallRequested = false;
+
+        StartNextWave();
+
+        if (wasEarly)
+        {
+            WaveCalledEarly?.Invoke();
         }
     }
     private void StartNextWave()
     {
         WaveConfig wave = levelConfig.Waves[nextWaveIndex];
+        lastWaveStartSeconds = elapsedSeconds;
         spawner.StartWave(wave);
         nextWaveIndex++;
-        nextWaveReadySeconds = 0;
     }
     void Update()
     {
@@ -65,33 +90,22 @@ public class WaveController : MonoBehaviour
             return;
         }
         elapsedSeconds += Time.deltaTime;
-        CheckClearedWaves();
-        if (!gameState.CanSimulate)
+
+        if (!startRequested && nextWaveIndex < levelConfig.Waves.Count
+            && GetRemainingWaitSeconds(levelConfig.Waves[nextWaveIndex]) <= 0f)
+        {
+            startRequested = true;
+            earlyCallRequested = false;
+        }
+
+        // One shared preparation attempt per frame, so even overdue waves cannot chain-start.
+        ProcessWaveStartRequest();
+        if (!gameState.CanSimulate || startRequested)
         {
             return;
         }
-        if (nextWaveIndex < levelConfig.Waves.Count && levelFlow.CanStartWave(nextWaveIndex + 1))
-        {
-            WaveConfig wave = levelConfig.Waves[nextWaveIndex];
-            bool previousWaveReady = wave.DelayAfterPreviousWave <= 0f || lastClearedWave == nextWaveIndex;
-            if (previousWaveReady)
-            {
-                nextWaveReadySeconds += Time.deltaTime;
-                if (elapsedSeconds >= wave.StartAtSeconds && nextWaveReadySeconds >= wave.DelayAfterPreviousWave)
-                {
-                    StartNextWave();
-                }
-            }
-            else
-            {
-                nextWaveReadySeconds = 0f;
-            }
-        }
-        else
-        {
-            nextWaveReadySeconds = 0f;
-        }
-        if (nextWaveIndex >= levelConfig.Waves.Count && !spawner.IsSpawning && spawner.AliveCount == 0 && levelFlow.AreAllWaveEventsCompleted())
+        if (nextWaveIndex >= levelConfig.Waves.Count && !spawner.IsSpawning && spawner.AliveCount == 0
+            && levelFlow.AreAllWaveStartEventsCompleted())
         {
             gameState.Win();
         }

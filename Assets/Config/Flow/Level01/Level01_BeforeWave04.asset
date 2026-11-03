@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3a40d2259e0874439617e9dd080ebe3, type: 3}
-  m_Name: Level01_AfterWave02
-  m_EditorClassIdentifier: Assembly-CSharp::WaveClearEventConfig
-  afterWaveNumber: 2
-  grantPoints: 0
-  requiredTowerCount: 0
+  m_Name: Level01_BeforeWave04
+  m_EditorClassIdentifier: Assembly-CSharp::WaveStartEventConfig
+  beforeWaveNumber: 4
+  grantPoints: 200
+  requiredTowerCount: 3
   pausePolicy: {fileID: 11400000, guid: 17139b92d9927a04b9ddd966f99ab4d6, type: 2}
-  tutorialCard: {fileID: 11400000, guid: eb8fe3b50fca01d4cad06c027e58c0e7, type: 2}
-  requireReinforcementDeployment: 1
+  requireReinforcementDeployment: 0
+  tutorialCard: {fileID: 11400000, guid: 98d602128ce6404742160032eb82eb12, type: 2}
