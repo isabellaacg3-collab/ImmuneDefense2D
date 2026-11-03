@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e7242a96ef2eeb74d679675fb7d65a, type: 3}
+  m_Name: NeutrophilLv1Visual
+  m_EditorClassIdentifier: Assembly-CSharp::NeutrophilVisualConfig
+  bodySprite: {fileID: 0}
+  bodyTint: {r: 1, g: 1, b: 1, a: 1}
+  tentacleTexture: {fileID: 0}
+  tentacleMaterial: {fileID: 2100000, guid: 3a34e7742ebd180bf9c3514544b30a79, type: 2}
+  originLocalOffset: {x: 0, y: 0}
+  rootWidth: 0.16
+  tipWidth: 0.045
+  segments: 24
+  curveAmplitude: 0.14
+  swayAmplitude: 0.035
+  swaySpeed: 3
+  extendSeconds: 0.18
+  retractSeconds: 0.18
+  rootColor: {r: 0.47, g: 1, b: 0.71, a: 0.9}
+  tipColor: {r: 0.31, g: 0.86, b: 1, a: 0.8}
+  swallowSeconds: 0.55
+  ghostEndScale: 0.08
+  ghostStartAlpha: 0.8
+  sortingLayerName:
+  tentacleSortingOffset: -1
+  ghostSortingOffset: 1
