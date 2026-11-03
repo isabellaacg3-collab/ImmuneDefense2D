@@ -46,4 +46,4 @@ MonoBehaviour:
   startAtSeconds: 0
   startIntervalSeconds: 29.4
   earlyCallEnabled: 1
-  earlyCallWindowSeconds: 0
+  earlyCallWindowSeconds: 14.7
