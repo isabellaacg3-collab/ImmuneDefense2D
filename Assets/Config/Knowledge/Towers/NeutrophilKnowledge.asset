@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
   m_Name: NeutrophilKnowledge
   m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
-  title: "中性粒细胞"
-  body: "现实分类：免疫细胞；先天免疫\n\n中性粒细胞属于白细胞和先天免疫系统，通常是感染或组织损伤后较早到达现场的免疫细胞。它们能够通过吞噬等方式参与清除病原体。\n\n来源：高中生物免疫基础"
+  title: "\u4E2D\u6027\u7C92\u7EC6\u80DE"
+  body: "\u73B0\u5B9E\u5206\u7C7B\uFF1A\u514D\u75AB\u7EC6\u80DE\uFF1B\u5148\u5929\u514D\u75AB\n\n\u4E2D\u6027\u7C92\u7EC6\u80DE\u662F\u767D\u7EC6\u80DE\u7684\u4E00\u79CD\uFF0C\u4E5F\u662F\u5148\u5929\u514D\u75AB\u7CFB\u7EDF\u7684\u91CD\u8981\u6210\u5458\u3002\u5F53\u7EC6\u83CC\u7B49\u75C5\u539F\u4F53\u5165\u4FB5\u65F6\uFF0C\u5B83\u4EEC\u901A\u5E38\u8F83\u65E9\u4F5C\u51FA\u53CD\u5E94\uFF0C\u5E76\u8D76\u5F80\u611F\u67D3\u90E8\u4F4D\u53C2\u4E0E\u9632\u5FA1\u3002\n\n\u6765\u6E90\uFF1A\u514D\u75AB\u57FA\u7840"

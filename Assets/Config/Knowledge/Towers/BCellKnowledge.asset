@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
   m_Name: BCellKnowledge
   m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
-  title: "B 细胞"
-  body: "现实分类：免疫细胞；适应性免疫\n\nB 细胞属于适应性免疫系统。受到合适刺激后，B 细胞可以增殖分化；其中浆细胞能够产生抗体，抗体可以特异性识别并结合相应抗原。\n\n来源：高中生物——体液免疫"
+  title: "B \u7EC6\u80DE"
+  body: "\u73B0\u5B9E\u5206\u7C7B\uFF1A\u514D\u75AB\u7EC6\u80DE\uFF1B\u9002\u5E94\u6027\u514D\u75AB\n\nB
+    \u7EC6\u80DE\u5C5E\u4E8E\u9002\u5E94\u6027\u514D\u75AB\u7CFB\u7EDF\u3002\u53D7\u5230\u5408\u9002\u523A\u6FC0\u540E\uFF0CB
+    \u7EC6\u80DE\u53EF\u4EE5\u589E\u6B96\u5206\u5316\uFF1B\u5176\u4E2D\u6D46\u7EC6\u80DE\u80FD\u591F\u4EA7\u751F\u6297\u4F53\uFF0C\u6297\u4F53\u53EF\u4EE5\u7279\u5F02\u6027\u8BC6\u522B\u5E76\u7ED3\u5408\u76F8\u5E94\u6297\u539F\u3002\n\n\u6765\u6E90\uFF1A\u4F53\u6DB2\u514D\u75AB"

@@ -15,9 +15,21 @@ MonoBehaviour:
   groups:
   - startOffsetSeconds: 0
     enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
-    enemyCount: 3
-    spawnInterval: 4.5
+    enemyCount: 2
+    spawnInterval: 5.85
     spawnPointId: spawn_01
     hostPointId: host_01
+  - startOffsetSeconds: 2.925
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 1
+    spawnInterval: 5.85
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 11.7
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 3
+    spawnInterval: 5.85
+    spawnPointId: spawn_03
+    hostPointId: host_03
   startAtSeconds: 1
   delayAfterPreviousWave: 0

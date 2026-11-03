@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
   m_Name: PlateletKnowledge
   m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
-  title: "血小板"
-  body: "现实分类：非免疫细胞；止血与修复相关\n\n血小板不是免疫细胞。血管受损后，血小板参与形成血小板栓并启动凝血过程，也会参与伤口修复。\n\n来源：高中生物——血液组成、凝血与伤口修复基础"
+  title: "\u8840\u5C0F\u677F"
+  body: "\u73B0\u5B9E\u5206\u7C7B\uFF1A\u975E\u514D\u75AB\u7EC6\u80DE\uFF1B\u6B62\u8840\u4E0E\u4FEE\u590D\u76F8\u5173\n\n\u8840\u5C0F\u677F\u4E0D\u662F\u514D\u75AB\u7EC6\u80DE\u3002\u8840\u7BA1\u53D7\u635F\u540E\uFF0C\u8840\u5C0F\u677F\u53C2\u4E0E\u5F62\u6210\u8840\u5C0F\u677F\u6813\u5E76\u542F\u52A8\u51DD\u8840\u8FC7\u7A0B\uFF0C\u4E5F\u4F1A\u53C2\u4E0E\u4F24\u53E3\u4FEE\u590D\u3002\n\n\u6765\u6E90\uFF1A\u8840\u6DB2\u7EC4\u6210\u3001\u51DD\u8840\u4E0E\u4F24\u53E3\u4FEE\u590D\u57FA\u7840"

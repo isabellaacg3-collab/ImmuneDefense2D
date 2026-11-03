@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
   m_Name: TCellKnowledge
   m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
-  title: "T 细胞"
-  body: "现实分类：免疫细胞；适应性免疫\n\nT 细胞属于适应性免疫系统。辅助性 T 细胞能够协助激活其他免疫细胞；细胞毒性 T 细胞能够识别并清除被感染的靶细胞。\n\n来源：高中生物——细胞免疫"
+  title: "T \u7EC6\u80DE"
+  body: "\u73B0\u5B9E\u5206\u7C7B\uFF1A\u514D\u75AB\u7EC6\u80DE\uFF1B\u9002\u5E94\u6027\u514D\u75AB\n\nT
+    \u7EC6\u80DE\u5C5E\u4E8E\u9002\u5E94\u6027\u514D\u75AB\u7CFB\u7EDF\u3002\u8F85\u52A9\u6027
+    T \u7EC6\u80DE\u80FD\u591F\u534F\u52A9\u6FC0\u6D3B\u5176\u4ED6\u514D\u75AB\u7EC6\u80DE\uFF1B\u7EC6\u80DE\u6BD2\u6027
+    T \u7EC6\u80DE\u80FD\u591F\u8BC6\u522B\u5E76\u6E05\u9664\u88AB\u611F\u67D3\u7684\u9776\u7EC6\u80DE\u3002\n\n\u6765\u6E90\uFF1A\u7EC6\u80DE\u514D\u75AB"

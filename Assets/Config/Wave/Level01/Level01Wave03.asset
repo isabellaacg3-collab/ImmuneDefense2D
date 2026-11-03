@@ -16,44 +16,44 @@ MonoBehaviour:
   - startOffsetSeconds: 0
     enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
     enemyCount: 4
-    spawnInterval: 1.51875
+    spawnInterval: 1.974375
     spawnPointId: spawn_01
     hostPointId: host_02
-  - startOffsetSeconds: 1.35
+  - startOffsetSeconds: 1.1475
     enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
     enemyCount: 4
-    spawnInterval: 2.3625
+    spawnInterval: 3.07125
     spawnPointId: spawn_03
     hostPointId: host_01
-  - startOffsetSeconds: 5.2875
+  - startOffsetSeconds: 6.87375
     enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
     enemyCount: 4
-    spawnInterval: 1.125
+    spawnInterval: 1.4625
     spawnPointId: spawn_02
     hostPointId: host_03
-  - startOffsetSeconds: 8.2125
+  - startOffsetSeconds: 10.67625
     enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
     enemyCount: 3
-    spawnInterval: 1.74375
+    spawnInterval: 2.266875
     spawnPointId: spawn_03
     hostPointId: host_02
-  - startOffsetSeconds: 10.2375
+  - startOffsetSeconds: 8.701875
     enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
     enemyCount: 3
-    spawnInterval: 2.08125
+    spawnInterval: 2.705625
     spawnPointId: spawn_01
     hostPointId: host_03
-  - startOffsetSeconds: 14.175
+  - startOffsetSeconds: 18.4275
     enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
     enemyCount: 3
-    spawnInterval: 0.95625
+    spawnInterval: 1.243125
     spawnPointId: spawn_03
     hostPointId: host_01
-  - startOffsetSeconds: 17.1
+  - startOffsetSeconds: 22.23
     enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
     enemyCount: 3
-    spawnInterval: 1.35
+    spawnInterval: 1.755
     spawnPointId: spawn_02
     hostPointId: host_01
   startAtSeconds: 0
-  delayAfterPreviousWave: 3.375
+  delayAfterPreviousWave: 7

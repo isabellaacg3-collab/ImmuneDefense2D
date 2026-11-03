@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameStateController gameState;
     [SerializeField] private List<ScenePointBinding> RealSpawnPoints = new List<ScenePointBinding>();
     [SerializeField] private List<ScenePointBinding> RealHostPoints = new List<ScenePointBinding>();
+    [SerializeField] private EnemyPathOffsetConfig pathOffsetConfig;
     private int spawningGroupCount = 0;
     private List<EnemyHealth> spawnedEnemies = new List<EnemyHealth>();
     public event Action<EnemyConfig> EnemyEnteredCombat;
@@ -72,8 +73,8 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
         spawnedEnemies.Add(enemy.GetComponent<EnemyHealth>());
         EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
-
-        movement.Initialize(waypoints,hostHealth,transform,exitPoint, gameState);
+        float lateralOffset = UnityEngine.Random.Range(-pathOffsetConfig.MaxLateralOffset,pathOffsetConfig.MaxLateralOffset);
+        movement.Initialize(waypoints,hostHealth,transform,exitPoint, gameState,lateralOffset,pathOffsetConfig.TransitionDistance);
         movement.EnteredCombat += HandleEnemyEnteredCombat;
     }
     public void StartWave(WaveConfig wave)

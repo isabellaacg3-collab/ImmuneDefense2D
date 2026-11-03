@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
   m_Name: RedBloodCellKnowledge
   m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
-  title: "红细胞"
-  body: "现实分类：非免疫细胞；氧运输细胞\n\n红细胞不是免疫细胞。它的主要功能是通过血红蛋白运输氧，并帮助维持血液的运输功能。\n\n来源：高中生物——血液组成与运输功能"
+  title: "\u7EA2\u7EC6\u80DE"
+  body: "\u73B0\u5B9E\u5206\u7C7B\uFF1A\u975E\u514D\u75AB\u7EC6\u80DE\uFF1B\u6C27\u8FD0\u8F93\u7EC6\u80DE\n\n\u7EA2\u7EC6\u80DE\u4E0D\u662F\u514D\u75AB\u7EC6\u80DE\u3002\u5B83\u7684\u4E3B\u8981\u529F\u80FD\u662F\u901A\u8FC7\u8840\u7EA2\u86CB\u767D\u8FD0\u8F93\u6C27\uFF0C\u5E76\u5E2E\u52A9\u7EF4\u6301\u8840\u6DB2\u7684\u8FD0\u8F93\u529F\u80FD\u3002\n\n\u6765\u6E90\uFF1A\u8840\u6DB2\u7EC4\u6210\u4E0E\u8FD0\u8F93\u529F\u80FD"
