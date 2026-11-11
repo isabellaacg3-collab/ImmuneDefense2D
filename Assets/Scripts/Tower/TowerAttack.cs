@@ -9,7 +9,8 @@ public class TowerAttack : MonoBehaviour
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRange;
     [SerializeField] private GameStateController gameState;
-    float attackTimer = 0f;
+    private float attackTimer = 0f;
+    private float slowTimer = 0f;
     public EnemyHealth CurrentTarget => target;
     public GameStateController GameState => gameState;
     public bool HasValidTarget => IsValidTarget(target);
@@ -61,6 +62,15 @@ public class TowerAttack : MonoBehaviour
         {
             return;
         }
+        if(target != null)
+        {
+            EnemyMovement movement = target.GetComponent<EnemyMovement>();
+            if(movement != null)
+            {
+                movement.RemoveSlowMultiplier(this);
+            }
+        }
+        slowTimer = 0;
         target = enemy;
         TargetChanged?.Invoke(target);
     }
@@ -83,6 +93,31 @@ public class TowerAttack : MonoBehaviour
             }
         }
         SetTarget(candidate);
+    }
+    private void UpdateSlow()
+    {
+        if (!IsValidTarget(target))
+        {
+            return;
+        }
+        slowTimer += Time.deltaTime;
+
+        float progress = 0f;
+        if(config.SlowRampSeconds <= 0f)
+        {
+            progress = 1f;
+        }
+        else
+        {
+            progress = Mathf.Clamp01(slowTimer / config.SlowRampSeconds);
+        }
+        float multiplier = 1f - Mathf.Clamp01(config.MaximumSlowPercent) * progress;
+
+        EnemyMovement movement = target.GetComponent<EnemyMovement>();
+        if(movement != null)
+        {
+            movement.SetSlowMultiplier(this, multiplier);
+        }
     }
     private void Awake()
     {
@@ -109,6 +144,7 @@ public class TowerAttack : MonoBehaviour
                 return;
             }
         }
+        UpdateSlow();
         if(attackTimer >= attackInterval)
         { 
             Attack();

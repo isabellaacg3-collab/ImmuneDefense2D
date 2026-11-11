@@ -21,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 pathPosition;
     private float combatPathLength;
     private float combatDistance;
+    private Dictionary<TowerAttack, float> slowMultipliers = new Dictionary<TowerAttack, float>();
     private enum MovePhase
     {
         Incoming,
@@ -96,6 +97,44 @@ public class EnemyMovement : MonoBehaviour
 
         return new Vector3(-forward.y, forward.x, 0f);
     }
+    private float GetSlowMultiplier()
+    {
+        float result = 1.0f;
+        foreach(float multiplier in slowMultipliers.Values)
+        {
+            result = Mathf.Min(result, multiplier);
+        }
+        return result;
+    }
+    public bool TryBlock(ReinforcementUnit unit)
+    {
+        if(unit == null || CanBeTargeted == false)
+        {
+            return false;
+        }
+        blockers.Add(unit);
+        return true;
+    }
+    public void ReleaseBlock(ReinforcementUnit unit)
+    {
+        blockers.Remove(unit);
+    }
+    public void SetSlowMultiplier(TowerAttack source, float multiplier)
+    {
+        if(source == null)
+        {
+            return;
+        }
+        slowMultipliers[source] = Mathf.Clamp01(multiplier);
+    }
+    public void RemoveSlowMultiplier(TowerAttack source)
+    {
+        if(source == null)
+        {
+            return;
+        }
+        slowMultipliers.Remove(source);
+    }
     private void Awake()
     {
         moveSpeed = config.MoveSpeed;
@@ -112,7 +151,8 @@ public class EnemyMovement : MonoBehaviour
         if (phase == MovePhase.Incoming)
         {
             target = gatherPoint;
-        }else if(phase == MovePhase.Combat)
+        }
+        else if (phase == MovePhase.Combat)
         {
             if (currentWaypointIndex >= waypoints.Count)
             {
@@ -120,7 +160,7 @@ public class EnemyMovement : MonoBehaviour
             }
             target = waypoints[currentWaypointIndex];
         }
-        else if(phase == MovePhase.Outgoing)
+        else if (phase == MovePhase.Outgoing)
         {
             target = exitPoint;
         }
@@ -133,7 +173,7 @@ public class EnemyMovement : MonoBehaviour
         pathPosition = Vector3.MoveTowards(
             pathPosition,
             target.position,
-            moveSpeed * Time.deltaTime
+            moveSpeed * Time.deltaTime * GetSlowMultiplier()
         );
 
         if (Vector3.Distance(pathPosition, target.position) < 0.01f)
@@ -150,7 +190,7 @@ public class EnemyMovement : MonoBehaviour
             int startIndex = currentWaypointIndex - 1;
             Vector3 start = GetPathPoint(startIndex);
             float segmentLength = Vector3.Distance(start, target.position);
-            float progress = Mathf.InverseLerp(0f,segmentLength,Vector3.Distance(start, pathPosition));
+            float progress = Mathf.InverseLerp(0f, segmentLength, Vector3.Distance(start, pathPosition));
 
             Vector3 side = Vector3.Lerp(
                 GetPathSide(startIndex),
@@ -158,7 +198,7 @@ public class EnemyMovement : MonoBehaviour
                 progress
             ).normalized;
 
-            float edgeDistance = Mathf.Min(combatDistance,combatPathLength - combatDistance);
+            float edgeDistance = Mathf.Min(combatDistance, combatPathLength - combatDistance);
 
             float fade = transitionDistance > 0f
                 ? Mathf.SmoothStep(0f, 1f, edgeDistance / transitionDistance)
@@ -167,7 +207,7 @@ public class EnemyMovement : MonoBehaviour
             transform.position = pathPosition + side * lateralOffset * fade;
         }
 
-        if (Vector3.Distance(pathPosition,target.position) < 0.01f)
+        if (Vector3.Distance(pathPosition, target.position) < 0.01f)
         {
             switch (phase)
             {
@@ -177,7 +217,7 @@ public class EnemyMovement : MonoBehaviour
                     break;
                 case MovePhase.Combat:
                     currentWaypointIndex++;
-                    if(currentWaypointIndex >= waypoints.Count)
+                    if (currentWaypointIndex >= waypoints.Count)
                     {
                         ReachHost();
                     }
@@ -187,18 +227,5 @@ public class EnemyMovement : MonoBehaviour
                     break;
             }
         }
-    }
-    public bool TryBlock(ReinforcementUnit unit)
-    {
-        if(unit == null || CanBeTargeted == false)
-        {
-            return false;
-        }
-        blockers.Add(unit);
-        return true;
-    }
-    public void ReleaseBlock(ReinforcementUnit unit)
-    {
-        blockers.Remove(unit);
     }
 }

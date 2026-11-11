@@ -9,6 +9,8 @@ public class TowerConfig : ScriptableObject
     [SerializeField] private float attackRange = 5f;
     [SerializeField] private int buildCost = 100;
     [SerializeField] private TutorialCardConfig knowledgeCard;
+    [SerializeField] private float slowRampSeconds = 1.5f;
+    [SerializeField] private float maximumSlowPercent = 0.2f;
     public int AttackDamage
     {
         get
@@ -42,6 +44,20 @@ public class TowerConfig : ScriptableObject
         get
         {
             return knowledgeCard;
+        }
+    }
+    public float SlowRampSeconds
+    {
+        get
+        {
+            return slowRampSeconds;
+        }
+    }
+    public float MaximumSlowPercent
+    {
+        get
+        {
+            return maximumSlowPercent;
         }
     }
 }
