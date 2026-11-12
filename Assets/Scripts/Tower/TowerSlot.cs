@@ -10,10 +10,21 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     [SerializeField] private BuildMenuUI buildMenu;
     [SerializeField] private TowerActionUI towerActionUI;
     private TowerAttack currentTower;
-    [ContextMenu("Test Build")]
-    private void TestBuild()
+    public bool CanUpgrade
     {
-        Debug.Log(TryBuild());
+        get
+        {
+            if (!gamestate.CanBuild || currentTower == null)
+            {
+                return false;
+            }
+            TowerConfig config = currentTower.Config;
+            if (config.UpgradeTarget == null || config.UpgradeTarget == config)
+            {
+                return false;
+            }
+            return gamestate.IsTowerUpgradeUnlocked(config.UpgradeTarget);
+        }
     }
     public event Action<TowerAttack> TowerBuilt;
     public void OnPointerClick(PointerEventData eventData)
@@ -33,7 +44,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         if(currentTower != null)
         {
             buildMenu.Close();
-            towerActionUI.Open(currentTower);
+            towerActionUI.Open(currentTower,this);
             return;
         }
         else
@@ -61,5 +72,27 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         currentTower.Initialize(gamestate);
         TowerBuilt?.Invoke(currentTower);
         return true;
+    }
+    public bool TryUpgrade()
+    {
+        if (!CanUpgrade)
+        {
+            return false;
+        }
+        TowerConfig config = currentTower.Config;
+        int cost = config.UpgradeCost;
+        if (!immunePoints.TrySpend(cost))
+        {
+            return false;
+        }
+        if (currentTower.TryApplyUpgrade())
+        {
+            return true;
+        }
+        else
+        {
+            immunePoints.Grant(cost);
+            return false;
+        }
     }
 }

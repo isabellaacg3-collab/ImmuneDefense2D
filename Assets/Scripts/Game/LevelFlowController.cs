@@ -46,6 +46,10 @@ public class LevelFlowController : MonoBehaviour
             reinforcementController.Unlock();
             reinforcementController.ResetCooldown();
         }
+        foreach(TowerConfig target in waveStartEvent.UnlockUpgradeTargets)
+        {
+            gameState.UnlockTowerUpgrade(target);
+        }
         immunePoints.Grant(waveStartEvent.GrantPoints);
         activePausedID = gameState.RequestPause(waveStartEvent.PausePolicy);
         tutorialCardUI.Open(waveStartEvent.TutorialCard);

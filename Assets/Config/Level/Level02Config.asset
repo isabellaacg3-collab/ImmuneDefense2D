@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5fe14d86ac5f84587297e883f425f5, type: 3}
+  m_Name: Level02Config
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  waves:
+  - {fileID: 11400000, guid: ced9e0e143654edca8b9838bd9e124e7, type: 2}
+  - {fileID: 11400000, guid: edf02ebcfb084d1381f06f413df49baa, type: 2}
+  - {fileID: 11400000, guid: bfd8ede7fc094733bd25356aafcd416f, type: 2}
+  resourceConfig: {fileID: 11400000, guid: 93916c56427acce438c40ccf9d7e7de2, type: 2}
+  initialHostHealth: 20
+  waveStartEvents:
+  - {fileID: 11400000, guid: 2fb683a00031da745bd905ed661c2f40, type: 2}
+  openingTutorialCard: {fileID: 0}

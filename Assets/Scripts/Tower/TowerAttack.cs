@@ -119,11 +119,29 @@ public class TowerAttack : MonoBehaviour
             movement.SetSlowMultiplier(this, multiplier);
         }
     }
-    private void Awake()
+    public bool TryApplyUpgrade()
     {
+        TowerConfig nextConfig = config.UpgradeTarget;
+        if(nextConfig == null || nextConfig == config)
+        {
+            return false;
+        }
+        SetTarget(null);
+        ApplyConfig(nextConfig);
+        return true;
+    }
+    private void ApplyConfig(TowerConfig newConfig)
+    {
+        config = newConfig;
+
         attackDamage = config.AttackDamage;
         attackInterval = config.AttackInterval;
         attackRange = config.AttackRange;
+
+    }
+    private void Awake()
+    {
+        ApplyConfig(config);
     }
     void Start()
     {

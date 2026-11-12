@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
 public enum LevelState
 {
     Playing,
@@ -16,6 +15,7 @@ public class GameStateController : MonoBehaviour
     [SerializeField] private LevelState state = LevelState.Preparing;
     private Dictionary<int, PausePolicyConfig> activePauses = new Dictionary<int, PausePolicyConfig>();
     private int nextPauseId = 1;
+    private readonly HashSet<TowerConfig> unlockedTowerUpgrades = new HashSet<TowerConfig>();
     public bool IsPlaying
     {
         get
@@ -29,6 +29,21 @@ public class GameStateController : MonoBehaviour
         {
             return state;
         }
+    }
+    public void UnlockTowerUpgrade(TowerConfig targetConfig)
+    {
+        if(targetConfig != null)
+        {
+            unlockedTowerUpgrades.Add(targetConfig);
+        }
+    }
+    public bool IsTowerUpgradeUnlocked(TowerConfig targetConfig)
+    {
+        if(targetConfig != null && unlockedTowerUpgrades.Contains(targetConfig))
+        {
+            return true;
+        }
+        return false;
     }
     public bool CanSimulate
     {
@@ -100,7 +115,6 @@ public class GameStateController : MonoBehaviour
         }
         state = LevelState.Defeat;
         StateChanged?.Invoke(State);
-        //Debug.Log("Defeat!");
     }
     private void OnEnable()
     {

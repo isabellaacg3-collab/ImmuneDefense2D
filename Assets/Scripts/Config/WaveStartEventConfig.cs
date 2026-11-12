@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ImmuneDefense/Wave Start Event")]
@@ -9,6 +11,14 @@ public class WaveStartEventConfig : ScriptableObject
     [SerializeField] private PausePolicyConfig pausePolicy;
     [SerializeField] private TutorialCardConfig tutorialCard;
     [SerializeField] private bool requireReinforcementDeployment = false;
+    [SerializeField] private List<TowerConfig> unlockUpgradeTargets = new List<TowerConfig>();
+    public IReadOnlyList<TowerConfig> UnlockUpgradeTargets
+    {
+        get
+        {
+            return unlockUpgradeTargets;
+        }
+    }
     public int BeforeWaveNumber
     {
         get
