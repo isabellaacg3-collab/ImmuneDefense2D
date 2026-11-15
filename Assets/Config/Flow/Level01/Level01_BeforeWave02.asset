@@ -18,3 +18,4 @@ MonoBehaviour:
   pausePolicy: {fileID: 11400000, guid: 17139b92d9927a04b9ddd966f99ab4d6, type: 2}
   tutorialCard: {fileID: 11400000, guid: 0edb81f035be27c49a05f8eb5184c7ef, type: 2}
   requireReinforcementDeployment: 0
+  unlockUpgradeTargets: []

@@ -13,6 +13,7 @@ public class TowerConfig : ScriptableObject
     [SerializeField] private float maximumSlowPercent = 0.2f;
     [SerializeField] TowerConfig upgradeTarget;
     [SerializeField] private int upgradeCost;
+    [SerializeField] private int maxLinkedTargets;
     public int AttackDamage
     {
         get
@@ -74,6 +75,13 @@ public class TowerConfig : ScriptableObject
         get
         {
             return upgradeCost;
+        }
+    }
+    public int MaxLinkedTargets
+    {
+        get
+        {
+            return maxLinkedTargets;
         }
     }
 }

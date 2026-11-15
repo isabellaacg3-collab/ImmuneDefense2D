@@ -14,14 +14,19 @@ public class NeutrophilLinkVisual : MonoBehaviour
     private bool subscribed;
     private GameObject runtimeRoot;
     private Material runtimeMaterial;
-    private EnemyHealth linkedTarget;
-    private LineRenderer link;
-    private float extension;
     private float visualClock;
     private Vector3[] positions;
+    private readonly List<ActiveLink> activeLinks = new List<ActiveLink>();
     private readonly List<RetractingLink> retracting = new List<RetractingLink>();
     private readonly List<Swallow> swallows = new List<Swallow>();
 
+    private sealed class ActiveLink
+    {
+        public EnemyHealth Target;
+        public LineRenderer Line;
+        public float Extension;
+        public bool Seen;
+    }
     private sealed class RetractingLink
     {
         public LineRenderer Line;
@@ -54,10 +59,8 @@ public class NeutrophilLinkVisual : MonoBehaviour
         ApplyBodyArt();
         if (tower != null && !subscribed)
         {
-            tower.TargetChanged += HandleTargetChanged;
             tower.TargetKilled += HandleTargetKilled;
             subscribed = true;
-            linkedTarget = tower.CurrentTarget;
         }
     }
     private void ApplyBodyArt()
@@ -67,12 +70,6 @@ public class NeutrophilLinkVisual : MonoBehaviour
             bodyRenderer.sprite = settings.BodySprite;
             bodyRenderer.color = settings.BodyTint;
         }
-    }
-    private void HandleTargetChanged(EnemyHealth next)
-    {
-        if (ReferenceEquals(linkedTarget, next)) return;
-        RetractLink();
-        linkedTarget = next;
     }
     private void EnsureRuntime()
     {
@@ -149,18 +146,56 @@ public class NeutrophilLinkVisual : MonoBehaviour
         line.endWidth = settings.TipWidth * scale;
         line.SetPositions(positions);
     }
-    private void RetractLink()
+    private int FindActiveLink(EnemyHealth target)
     {
-        if (link != null)
+        for (int i = 0; i < activeLinks.Count; i++)
         {
-            if (link.enabled && link.positionCount > 0)
-                retracting.Add(new RetractingLink {Line = link, End = link.GetPosition(link.positionCount - 1)});
-            else Destroy(link.gameObject);
+            if (ReferenceEquals(activeLinks[i].Target, target)) return i;
         }
-        link = null;
-        extension = 0f;
+        return -1;
     }
-    private void HandleTargetKilled(EnemyVisualSnapshot snapshot)
+    private void UpdateActiveLinks(float dt)
+    {
+        float extensionStep = dt / Mathf.Max(.01f, settings.ExtendSeconds);
+        for (int i = 0; i < tower.LinkedTargetCount; i++)
+        {
+            EnemyHealth target = tower.GetLinkedTarget(i);
+            if (target == null || !target.IsAlive || !target.isActiveAndEnabled) continue;
+
+            int index = FindActiveLink(target);
+            ActiveLink item;
+            if (index < 0)
+            {
+                item = new ActiveLink { Target = target, Line = CreateLine() };
+                activeLinks.Add(item);
+            }
+            else item = activeLinks[index];
+
+            item.Seen = true;
+            item.Extension = Mathf.MoveTowards(item.Extension, 1f, extensionStep);
+            DrawLine(item.Line, Vector3.Lerp(Origin, target.transform.position, item.Extension));
+        }
+        // A surviving target keeps its renderer and progress when the list order shifts.
+        for (int i = activeLinks.Count - 1; i >= 0; i--)
+        {
+            ActiveLink item = activeLinks[i];
+            if (item.Seen)
+            {
+                item.Seen = false;
+                continue;
+            }
+            RetractLink(item.Line);
+            activeLinks.RemoveAt(i);
+        }
+    }
+    private void RetractLink(LineRenderer line)
+    {
+        if (line == null) return;
+        if (line.enabled && line.positionCount > 0)
+            retracting.Add(new RetractingLink { Line = line, End = line.GetPosition(line.positionCount - 1) });
+        else Destroy(line.gameObject);
+    }
+    private void HandleTargetKilled(EnemyHealth target, EnemyVisualSnapshot snapshot)
     {
         if (snapshot.Sprite == null || settings == null || !isActiveAndEnabled) return;
         EnsureRuntime();
@@ -182,13 +217,13 @@ public class NeutrophilLinkVisual : MonoBehaviour
             ? snapshot.SortingLayerID : SortingLayer.NameToID(settings.SortingLayerName);
         ghost.sortingOrder = Mathf.Max(snapshot.SortingOrder, bodyRenderer != null ? bodyRenderer.sortingOrder : 0)
             + settings.GhostSortingOffset;
-        var swallowedLink = link != null ? link : CreateLine();
+        int index = FindActiveLink(target);
+        LineRenderer swallowedLink = index >= 0 ? activeLinks[index].Line : null;
+        if (index >= 0) activeLinks.RemoveAt(index);
+        if (swallowedLink == null) swallowedLink = CreateLine();
         DrawLine(swallowedLink, snapshot.Position);
         swallows.Add(new Swallow {Ghost = ghost, Line = swallowedLink, Start = snapshot.Position,
             InitialScale = snapshot.Scale, InitialColor = ghost.color});
-        link = null;
-        linkedTarget = null;
-        extension = 0f;
     }
     private void LateUpdate()
     {
@@ -205,14 +240,7 @@ public class NeutrophilLinkVisual : MonoBehaviour
         if (runtimeMaterial != null)
             runtimeMaterial.mainTexture = settings.TentacleTexture != null ? settings.TentacleTexture : Texture2D.whiteTexture;
 
-        EnemyHealth next = tower.HasValidTarget ? tower.CurrentTarget : null;
-        HandleTargetChanged(next);
-        if (linkedTarget != null)
-        {
-            if (link == null) link = CreateLine();
-            extension = Mathf.MoveTowards(extension, 1f, dt / Mathf.Max(.01f, settings.ExtendSeconds));
-            DrawLine(link, Vector3.Lerp(Origin, linkedTarget.transform.position, extension));
-        }
+        UpdateActiveLinks(dt);
         for (int i = retracting.Count - 1; i >= 0; i--)
         {
             var item = retracting[i];
@@ -261,9 +289,7 @@ public class NeutrophilLinkVisual : MonoBehaviour
         if (runtimeMaterial != null) Destroy(runtimeMaterial);
         runtimeRoot = null;
         runtimeMaterial = null;
-        link = null;
-        linkedTarget = null;
-        extension = 0f;
+        activeLinks.Clear();
         swallows.Clear();
         retracting.Clear();
     }
@@ -271,7 +297,6 @@ public class NeutrophilLinkVisual : MonoBehaviour
     {
         if (subscribed && tower != null)
         {
-            tower.TargetChanged -= HandleTargetChanged;
             tower.TargetKilled -= HandleTargetKilled;
         }
         subscribed = false;

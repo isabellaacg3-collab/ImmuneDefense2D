@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0cf78a8a4985634e9782c3d1f2497a6, type: 3}
   m_Name: NeutrophilLv2Config
   m_EditorClassIdentifier: Assembly-CSharp::TowerConfig
-  attackDamage: 6
+  attackDamage: 4
   attackInterval: 1
   attackRange: 2.2
   buildCost: 100
@@ -21,3 +21,4 @@ MonoBehaviour:
   maximumSlowPercent: 0.3
   upgradeTarget: {fileID: 0}
   upgradeCost: 0
+  maxLinkedTargets: 2

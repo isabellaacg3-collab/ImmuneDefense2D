@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(menuName = "ImmuneDefense/Level Config")]
 public class LevelConfig : ScriptableObject
