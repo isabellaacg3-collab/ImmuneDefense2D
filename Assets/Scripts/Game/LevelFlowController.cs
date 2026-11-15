@@ -97,7 +97,7 @@ public class LevelFlowController : MonoBehaviour
         }
         return null;
     }
-    private void HandleTowerBuilt(TowerAttack tower)
+    private void HandleTowerBuilt(TowerInstance tower)
     {
         placedTowerCount++;
         Debug.Log(placedTowerCount);

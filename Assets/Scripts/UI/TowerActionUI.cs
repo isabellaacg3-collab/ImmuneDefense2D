@@ -9,13 +9,13 @@ public class TowerActionUI : MonoBehaviour
     [SerializeField] private TMP_Text bodyText;
     [SerializeField] private KnowledgeCardController knowledgeCardController;
     [SerializeField] Button upgradeButton;
-    private TowerAttack selectedTower;
+    private TowerInstance selectedTower;
     private TowerSlot selectedSlot;
     private void Awake()
     {
         panel.SetActive(false);
     }
-    public void Open(TowerAttack tower,TowerSlot slot)
+    public void Open(TowerInstance tower,TowerSlot slot)
     {
         if(tower == null)
         {

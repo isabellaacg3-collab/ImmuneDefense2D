@@ -6,10 +6,10 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
 {
     [SerializeField] private GameStateController gamestate;
     [SerializeField] private ImmunePoints immunePoints;
-    [SerializeField] private TowerAttack towerPrefab;
+    [SerializeField] private TowerInstance towerPrefab;
     [SerializeField] private BuildMenuUI buildMenu;
     [SerializeField] private TowerActionUI towerActionUI;
-    private TowerAttack currentTower;
+    private TowerInstance currentTower;
     public bool CanUpgrade
     {
         get
@@ -19,14 +19,14 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
                 return false;
             }
             TowerConfig config = currentTower.Config;
-            if (config.UpgradeTarget == null || config.UpgradeTarget == config)
+            if (config == null || config.UpgradeTarget == null || config.UpgradeTarget == config)
             {
                 return false;
             }
             return gamestate.IsTowerUpgradeUnlocked(config.UpgradeTarget);
         }
     }
-    public event Action<TowerAttack> TowerBuilt;
+    public event Action<TowerInstance> TowerBuilt;
     public void OnPointerClick(PointerEventData eventData)
     {
         if(eventData.button != PointerEventData.InputButton.Left)
@@ -64,7 +64,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         {
             return false;
         }
-        if (!immunePoints.TrySpend(towerPrefab.Config.BuildCost))
+        if (towerPrefab == null || towerPrefab.Config == null || !immunePoints.TrySpend(towerPrefab.Config.BuildCost))
         {
             return false;
         }

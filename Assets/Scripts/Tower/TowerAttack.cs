@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TowerInstance))]
 public class TowerAttack : MonoBehaviour
 {
-    [SerializeField] TowerConfig config;
     [SerializeField] private EnemyHealth target;
     [SerializeField] private float attackInterval;
     [SerializeField] private int attackDamage;
     [SerializeField] private float attackRange;
-    [SerializeField] private GameStateController gameState;
+    private TowerInstance towerInstance;
+    private int maxLinkedTargets;
     private float attackTimer = 0f;
     private class TargetLink
     {
@@ -24,17 +25,10 @@ public class TowerAttack : MonoBehaviour
     private List<TargetLink> links = new List<TargetLink>();
     public EnemyHealth CurrentTarget => target;
     public int LinkedTargetCount => links.Count;
-    public GameStateController GameState => gameState;
+    public GameStateController GameState => towerInstance.GameState;
     public bool HasValidTarget => IsValidTarget(target);
     public event Action<EnemyHealth> TargetChanged;
     public event Action<EnemyHealth, EnemyVisualSnapshot> TargetKilled;
-    public TowerConfig Config
-    {
-        get
-        {
-            return config;
-        }
-    }
     public EnemyHealth GetLinkedTarget(int index)
     {
         if(index < 0 || index >= links.Count)
@@ -43,12 +37,9 @@ public class TowerAttack : MonoBehaviour
         }
         return links[index].Target;
     }
-    public void Initialize(GameStateController controller)
-    {
-        gameState = controller;
-    }
     private void Attack()
     {
+        GameStateController gameState = GameState;
         if (gameState == null || !gameState.CanSimulate)
         {
             return;
@@ -142,7 +133,7 @@ public class TowerAttack : MonoBehaviour
     }
     private void FillEmptyLinks()
     {
-        while (links.Count < config.MaxLinkedTargets)
+        while (links.Count < maxLinkedTargets)
         {
             EnemyHealth enemy = FindNearestUnlinkedTarget();
             if(enemy == null)
@@ -161,6 +152,7 @@ public class TowerAttack : MonoBehaviour
         }
         link.SlowTimer += Time.deltaTime;
 
+        TowerConfig config = towerInstance.Config;
         float progress = 0f;
         if(config.SlowRampSeconds <= 0f)
         {
@@ -208,30 +200,32 @@ public class TowerAttack : MonoBehaviour
             RemoveLinkAt(links.Count - 1);
         }
     }
-    public bool TryApplyUpgrade()
+    private void HandleConfigChanged(TowerConfig config)
     {
-        TowerConfig nextConfig = config.UpgradeTarget;
-        if(nextConfig == null || nextConfig == config)
-        {
-            return false;
-        }
         ClearAllLinks();
         SetTarget(null);
-        ApplyConfig(nextConfig);
-        return true;
+        ApplyConfig(config);
     }
-    private void ApplyConfig(TowerConfig newConfig)
+    private void ApplyConfig(TowerConfig config)
     {
-        config = newConfig;
+        if (config == null)
+        {
+            return;
+        }
 
         attackDamage = config.AttackDamage;
         attackInterval = config.AttackInterval;
         attackRange = config.AttackRange;
-
+        maxLinkedTargets = config.MaxLinkedTargets;
     }
     private void Awake()
     {
-        ApplyConfig(config);
+        towerInstance = GetComponent<TowerInstance>();
+    }
+    private void OnEnable()
+    {
+        towerInstance.ConfigChanged += HandleConfigChanged;
+        ApplyConfig(towerInstance.Config);
     }
     void Start()
     {
@@ -239,6 +233,7 @@ public class TowerAttack : MonoBehaviour
     }
     void Update()
     {
+        GameStateController gameState = GameState;
         if (gameState == null || !gameState.CanSimulate)
         {
             return;
@@ -262,6 +257,10 @@ public class TowerAttack : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (towerInstance != null)
+        {
+            towerInstance.ConfigChanged -= HandleConfigChanged;
+        }
         ClearAllLinks();
         SetTarget(null);
     }
