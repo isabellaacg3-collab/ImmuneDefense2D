@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections.Generic;
 
 public class TowerSlot : MonoBehaviour,IPointerClickHandler
 {
@@ -10,6 +11,8 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     [SerializeField] private BuildMenuUI buildMenu;
     [SerializeField] private TowerActionUI towerActionUI;
     private TowerInstance currentTower;
+    public IReadOnlyList<TowerInstance> BuildableTowers => gamestate.LevelConfig?.BuildableTowers;
+
     public bool CanUpgrade
     {
         get
@@ -44,31 +47,42 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         if(currentTower != null)
         {
             buildMenu.Close();
-            towerActionUI.Open(currentTower,this);
+            if (towerActionUI != null) towerActionUI.Open(currentTower, this);
             return;
         }
         else
         {
-            towerActionUI.Close();
+            if (towerActionUI != null) towerActionUI.Close();
             buildMenu.Open(this);
         }
 
     }
+    public bool CanBuild(TowerInstance prefab)
+    {
+        if (!gamestate.CanBuild || currentTower != null || prefab == null || prefab.Config == null)
+        {
+            return false;
+        }
+
+        LevelConfig level = gamestate.LevelConfig;
+        bool allowed = level != null ? level.AllowsTower(prefab) : prefab == towerPrefab;
+        int cost = prefab.Config.BuildCost;
+        return allowed && cost >= 0 && immunePoints.Points >= cost;
+    }
+
     public bool TryBuild()
     {
-        if (!gamestate.CanBuild)
+        return TryBuild(towerPrefab);
+    }
+
+    public bool TryBuild(TowerInstance prefab)
+    {
+        if (!CanBuild(prefab) || !immunePoints.TrySpend(prefab.Config.BuildCost))
         {
             return false;
         }
-        if(currentTower != null)
-        {
-            return false;
-        }
-        if (towerPrefab == null || towerPrefab.Config == null || !immunePoints.TrySpend(towerPrefab.Config.BuildCost))
-        {
-            return false;
-        }
-        currentTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+
+        currentTower = Instantiate(prefab, transform.position, Quaternion.identity);
         currentTower.Initialize(gamestate);
         TowerBuilt?.Invoke(currentTower);
         return true;

@@ -21,3 +21,6 @@ MonoBehaviour:
   waveStartEvents:
   - {fileID: 11400000, guid: 2fb683a00031da745bd905ed661c2f40, type: 2}
   openingTutorialCard: {fileID: 0}
+  buildableTowers:
+  - {fileID: 8699259914061437236, guid: 2c34a236c31940b4cb61fd1f71f5abb4, type: 3}
+  - {fileID: 114000000000000004, guid: c7f878d877e34e24bd0cb7b15a0d6c71, type: 3}

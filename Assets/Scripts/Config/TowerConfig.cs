@@ -14,6 +14,14 @@ public class TowerConfig : ScriptableObject
     [SerializeField] TowerConfig upgradeTarget;
     [SerializeField] private int upgradeCost;
     [SerializeField] private int maxLinkedTargets;
+    [SerializeField] private string displayName;
+    [SerializeField, TextArea] private string roleDescription;
+
+    public string DisplayName => !string.IsNullOrWhiteSpace(displayName)
+        ? displayName
+        : knowledgeCard != null ? knowledgeCard.Title : name;
+    public string RoleDescription => roleDescription;
+
     public int AttackDamage
     {
         get

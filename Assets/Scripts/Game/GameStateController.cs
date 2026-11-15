@@ -12,10 +12,13 @@ public enum LevelState
 public class GameStateController : MonoBehaviour
 {
     [SerializeField] private HostHealth host;
+    [SerializeField] private LevelConfig levelConfig;
     [SerializeField] private LevelState state = LevelState.Preparing;
     private Dictionary<int, PausePolicyConfig> activePauses = new Dictionary<int, PausePolicyConfig>();
     private int nextPauseId = 1;
     private readonly HashSet<TowerConfig> unlockedTowerUpgrades = new HashSet<TowerConfig>();
+    public LevelConfig LevelConfig => levelConfig;
+
     public bool IsPlaying
     {
         get

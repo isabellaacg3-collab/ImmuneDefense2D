@@ -10,6 +10,15 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private int initialHostHealth = 20;
     [SerializeField] private List<WaveStartEventConfig> waveStartEvents = new List<WaveStartEventConfig>();
     [SerializeField] private TutorialCardConfig openingTutorialCard;
+    [SerializeField] private List<TowerInstance> buildableTowers = new List<TowerInstance>();
+
+    public IReadOnlyList<TowerInstance> BuildableTowers => buildableTowers;
+
+    public bool AllowsTower(TowerInstance prefab)
+    {
+        return buildableTowers.Contains(prefab);
+    }
+
     public TutorialCardConfig OpeningTutorialCard
     {
         get

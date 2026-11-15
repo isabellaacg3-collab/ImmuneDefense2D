@@ -17,7 +17,7 @@ public class TowerActionUI : MonoBehaviour
     }
     public void Open(TowerInstance tower,TowerSlot slot)
     {
-        if(tower == null)
+        if (tower == null || tower.Config == null)
         {
             return;
         }
@@ -28,8 +28,10 @@ public class TowerActionUI : MonoBehaviour
             upgradeButton.interactable = selectedSlot != null && selectedSlot.CanUpgrade;
         }
         TowerConfig config = tower.Config;
-        titleText.text = config.KnowledgeCard.Title;
-        bodyText.text = $"攻击：{config.AttackDamage}   间隔：{config.AttackInterval:F1} 秒   范围：{config.AttackRange:F1}";
+        titleText.text = config.DisplayName;
+        bodyText.text = !string.IsNullOrWhiteSpace(config.RoleDescription)
+            ? config.RoleDescription
+            : $"攻击：{config.AttackDamage}   间隔：{config.AttackInterval:F1} 秒   范围：{config.AttackRange:F1}";
         panel.SetActive(true);
     }
     public void Close()

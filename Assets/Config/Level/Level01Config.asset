@@ -28,3 +28,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32fb9ad5227ce3a4596fc3aed2589d26, type: 2}
   openingTutorialCard: {fileID: 11400000, guid: eb7fd5f44e745534e87d4d867f32cbf2, type: 2}
   allowTowerUpgrade: 0
+  buildableTowers:
+  - {fileID: 8699259914061437236, guid: 2c34a236c31940b4cb61fd1f71f5abb4, type: 3}
