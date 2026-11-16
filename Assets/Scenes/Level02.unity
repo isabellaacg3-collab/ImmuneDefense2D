@@ -7136,6 +7136,7 @@ GameObject:
   - component: {fileID: 1490437556}
   - component: {fileID: 1490437553}
   - component: {fileID: 1490437555}
+  - component: {fileID: 1490437557}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -7203,6 +7204,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImmunePoints
   levelConfig: {fileID: 11400000, guid: dcb71788102987e47ab6ee4c91220f85, type: 2}
   points: 100
+--- !u!114 &1490437557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490437552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26c954a795d470fb0774becdedac415, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::RedBloodCellTransportRoute
+  pathSource: {fileID: 832065557}
+  immunePoints: {fileID: 1490437556}
 --- !u!1 &1501401232
 GameObject:
   m_ObjectHideFlags: 0
