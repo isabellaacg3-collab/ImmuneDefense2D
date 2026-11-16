@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
     private MovePhase phase = MovePhase.Incoming;
     private int currentWaypointIndex = 0;
     private GameStateController gameState;
-    private HashSet<ReinforcementUnit> blockers = new HashSet<ReinforcementUnit>();
+    private HashSet<Component> blockers = new HashSet<Component>();
     private float lateralOffset;
     private float transitionDistance;
     private Vector3 pathPosition;
@@ -121,7 +121,7 @@ public class EnemyMovement : MonoBehaviour
         }
         return result;
     }
-    public bool TryBlock(ReinforcementUnit unit)
+    public bool TryBlock(Component unit)
     {
         if(unit == null || CanBeTargeted == false)
         {
@@ -130,7 +130,7 @@ public class EnemyMovement : MonoBehaviour
         blockers.Add(unit);
         return true;
     }
-    public void ReleaseBlock(ReinforcementUnit unit)
+    public void ReleaseBlock(Component unit)
     {
         blockers.Remove(unit);
     }
@@ -155,6 +155,19 @@ public class EnemyMovement : MonoBehaviour
         moveSpeed = config.MoveSpeed;
         hostDamage = config.HostDamage;
     }
+    private bool TryInterceptTransport(Vector3 previousPosition)
+    {
+        float step = Vector3.Distance(previousPosition, pathPosition);
+        if (step <= 0f ||
+            !RedBloodCellTransportUnit.TryIntercept(this, gameState, combatDistance, step, out float allowedStep))
+        {
+            return false;
+        }
+
+        pathPosition = Vector3.MoveTowards(previousPosition, pathPosition, allowedStep);
+        return true;
+    }
+
     void Update()
     {
         if (!gameState.CanSimulate || blockers.Count > 0)
@@ -196,6 +209,7 @@ public class EnemyMovement : MonoBehaviour
             pathPosition = target.position;
         }
 
+        bool intercepted = phase == MovePhase.Combat && TryInterceptTransport(previousPosition);
         transform.position = pathPosition;
 
         if (phase == MovePhase.Combat)
@@ -222,7 +236,7 @@ public class EnemyMovement : MonoBehaviour
             transform.position = pathPosition + side * lateralOffset * fade;
         }
 
-        if (Vector3.Distance(pathPosition, target.position) < 0.01f)
+        if (!intercepted && Vector3.Distance(pathPosition, target.position) < 0.01f)
         {
             switch (phase)
             {

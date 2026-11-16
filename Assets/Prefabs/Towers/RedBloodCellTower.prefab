@@ -122,5 +122,5 @@ MonoBehaviour:
   unitPrefab: {fileID: 114000000000000004, guid: 28a43c4145064daeba35d90d5eca56e7, type: 3}
   dispatchInterval: 8
   maxInTransit: 1
-  moveSpeed: 2.2
+  moveSpeed: 0.9
   deliveryReward: 25

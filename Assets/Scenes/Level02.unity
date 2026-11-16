@@ -7218,6 +7218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RedBloodCellTransportRoute
   pathSource: {fileID: 832065557}
   immunePoints: {fileID: 1490437556}
+  hostExit: {fileID: 572355653}
 --- !u!1 &1501401232
 GameObject:
   m_ObjectHideFlags: 0

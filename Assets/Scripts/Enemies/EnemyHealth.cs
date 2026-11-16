@@ -9,6 +9,14 @@ public class EnemyHealth : MonoBehaviour
     public EnemyConfig Config => config;
     public bool IsAlive => !isDead && health > 0;
 
+    public void Heal(int amount)
+    {
+        if (IsAlive && amount > 0)
+        {
+            health += Mathf.Min(amount, config.MaxHealth - health);
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         TryTakeDamage(damage, out _);

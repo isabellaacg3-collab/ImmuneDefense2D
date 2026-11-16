@@ -104,3 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261ad14012844437a3394472dce4929c, type: 3}
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::RedBloodCellTransportUnit
+  maxHealth: 3
+  hitInterval: 1
+  basicEnemyConfig: {fileID: 11400000, guid: 9f22130053ed4a0428d5229a6705ecda, type: 2}
