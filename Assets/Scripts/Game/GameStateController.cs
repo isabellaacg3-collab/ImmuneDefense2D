@@ -16,6 +16,7 @@ public class GameStateController : MonoBehaviour
     [SerializeField] private LevelState state = LevelState.Preparing;
     private Dictionary<int, PausePolicyConfig> activePauses = new Dictionary<int, PausePolicyConfig>();
     private int nextPauseId = 1;
+    private MonoBehaviour roadSkillSelection;
     private readonly HashSet<TowerConfig> unlockedTowerUpgrades = new HashSet<TowerConfig>();
     public LevelConfig LevelConfig => levelConfig;
 
@@ -91,6 +92,23 @@ public class GameStateController : MonoBehaviour
             return state == LevelState.Playing && CanBuild;
         }
     }
+    public bool HasRoadSkillSelection => roadSkillSelection != null;
+
+    public bool IsSelectingRoadSkill(MonoBehaviour skill)
+    {
+        return roadSkillSelection != null && roadSkillSelection == skill;
+    }
+
+    public void BeginRoadSkillSelection(MonoBehaviour skill)
+    {
+        if (CanDeploy && skill != null) roadSkillSelection = skill;
+    }
+
+    public void EndRoadSkillSelection(MonoBehaviour skill)
+    {
+        if (IsSelectingRoadSkill(skill)) roadSkillSelection = null;
+    }
+
     public void BeginBattle()
     {
         if (state != LevelState.Preparing)

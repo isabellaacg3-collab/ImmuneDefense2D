@@ -9,6 +9,7 @@ public class LevelFlowController : MonoBehaviour
     [SerializeField] private ImmunePoints immunePoints;
     [SerializeField] private TutorialCardUI tutorialCardUI;
     [SerializeField] private ReinforcementController reinforcementController;
+    [SerializeField] private AntibodyStormController antibodyStorm;
     private WaveStartEventConfig activeWaveStartEvent = null;
     private int activePausedID = 0;
     private int placedTowerCount = 0;
@@ -49,6 +50,10 @@ public class LevelFlowController : MonoBehaviour
         foreach(TowerConfig target in waveStartEvent.UnlockUpgradeTargets)
         {
             gameState.UnlockTowerUpgrade(target);
+        }
+        if (waveStartEvent.UnlockAntibodyStorm && antibodyStorm != null)
+        {
+            antibodyStorm.Unlock();
         }
         immunePoints.Grant(waveStartEvent.GrantPoints);
         activePausedID = gameState.RequestPause(waveStartEvent.PausePolicy);

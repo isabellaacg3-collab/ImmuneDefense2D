@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
 
-public class TowerSlot : MonoBehaviour,IPointerClickHandler
+public class TowerSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandler
 {
     [SerializeField] private GameStateController gamestate;
     [SerializeField] private ImmunePoints immunePoints;
@@ -11,6 +11,7 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
     [SerializeField] private BuildMenuUI buildMenu;
     [SerializeField] private TowerActionUI towerActionUI;
     private TowerInstance currentTower;
+    private bool pointerDownWhileTargeting;
     public IReadOnlyList<TowerInstance> BuildableTowers => gamestate.LevelConfig?.BuildableTowers;
 
     public bool CanUpgrade
@@ -30,9 +31,15 @@ public class TowerSlot : MonoBehaviour,IPointerClickHandler
         }
     }
     public event Action<TowerInstance> TowerBuilt;
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+            pointerDownWhileTargeting = gamestate.HasRoadSkillSelection;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button != PointerEventData.InputButton.Left)
+        if (eventData.button != PointerEventData.InputButton.Left || pointerDownWhileTargeting || gamestate.HasRoadSkillSelection)
         {
             return;
         }

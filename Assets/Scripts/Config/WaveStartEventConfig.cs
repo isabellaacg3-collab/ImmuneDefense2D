@@ -12,6 +12,9 @@ public class WaveStartEventConfig : ScriptableObject
     [SerializeField] private TutorialCardConfig tutorialCard;
     [SerializeField] private bool requireReinforcementDeployment = false;
     [SerializeField] private List<TowerConfig> unlockUpgradeTargets = new List<TowerConfig>();
+    [SerializeField] private bool unlockAntibodyStorm;
+    public bool UnlockAntibodyStorm => unlockAntibodyStorm;
+
     public IReadOnlyList<TowerConfig> UnlockUpgradeTargets
     {
         get

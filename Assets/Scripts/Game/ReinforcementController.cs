@@ -1,8 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using System;
 
 public class ReinforcementController : MonoBehaviour
@@ -14,7 +12,6 @@ public class ReinforcementController : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private WaveController waveController;
     private float cooldownRemaining = 0f;
-    private bool isSelectingPosition = false;
     private bool isUnlocked = false;
     private List<SpriteRenderer> previewUnits = new List<SpriteRenderer>();
     public event Action Deployed;
@@ -25,13 +22,7 @@ public class ReinforcementController : MonoBehaviour
             return isUnlocked;
         }
     }
-    public bool IsSelectingPosition
-    {
-        get
-        {
-            return isSelectingPosition;
-        }
-    }
+    public bool IsSelectingPosition => gameState != null && gameState.IsSelectingRoadSkill(this);
     public float CooldownRemaining
     {
         get
@@ -82,7 +73,7 @@ public class ReinforcementController : MonoBehaviour
     }
     public void BeginDeploySelection()
     {
-        if (isSelectingPosition)
+        if (IsSelectingPosition)
         {
             CancelDeployment();
             return;
@@ -91,54 +82,17 @@ public class ReinforcementController : MonoBehaviour
         {
             return;
         }
-        isSelectingPosition = true;
+        gameState.BeginRoadSkillSelection(this);
         Debug.Log("可手动部署援军");
     }
     public void CancelDeployment()
     {
-        isSelectingPosition = false;
+        if (gameState != null) gameState.EndRoadSkillSelection(this);
         SetPreviewVisible(false);
     }
-    private bool IsPointerOverUI(Vector2 screenPosition)
+    private bool TryGetDeploymentProjection(Vector3 position, out PathProjectionResult projection)
     {
-        PointerEventData pointer = new PointerEventData(EventSystem.current);
-        pointer.position = screenPosition;
-        List<RaycastResult> hits = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointer, hits);
-        foreach(RaycastResult hit in hits)
-        {
-            if(hit.module is GraphicRaycaster)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    private List<Vector3> BuildDeploymentPath()
-    {
-        List<Vector3> points = new List<Vector3>();
-        points.Add(enemySpawner.transform.position);
-        foreach(Transform waypoint in enemySpawner.Waypoints)
-        {
-            points.Add(waypoint.position);
-        }
-        return points;
-    }
-    private bool TryGetDeploymentProjection(Vector3 position,out PathProjectionResult projection)
-    {
-        List<Vector3> path = BuildDeploymentPath();
-
-        if (!PathGeometryUtility.TryProjectPointToPath(position, path, out projection))
-        {
-            return false;
-        }
-
-        if (projection.Distance > config.MaxDisFromPath)
-        {
-            return false;
-        }
-
-        return true;
+        return RoadSkillTargeting.TryProject(enemySpawner, position, config.MaxDisFromPath, out projection);
     }
     private Vector3 GetUnitSpawnPosition(PathProjectionResult projection,int index)
     {
@@ -174,7 +128,7 @@ public class ReinforcementController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (!isSelectingPosition || !gameState.CanDeploy)
+        if (!IsSelectingPosition || !gameState.CanDeploy)
         {
             SetPreviewVisible(false);
             return;
@@ -189,15 +143,8 @@ public class ReinforcementController : MonoBehaviour
             CancelDeployment();
             return;
         }
-        Vector2 screenPosition = Mouse.current.position.ReadValue();
-        if (IsPointerOverUI(screenPosition))
-        {
-            SetPreviewVisible(false);
-            return;
-        }
-        Vector3 worldPosition = worldCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0f));
-        worldPosition.z = 0f;
-        if(!TryGetDeploymentProjection(worldPosition,out PathProjectionResult projection))
+        if (!RoadSkillTargeting.TryGetPointerPosition(worldCamera, out Vector3 worldPosition)
+            || !TryGetDeploymentProjection(worldPosition, out PathProjectionResult projection))
         {
             SetPreviewVisible(false);
             return;
@@ -230,6 +177,7 @@ public class ReinforcementController : MonoBehaviour
     }
     private void OnDisable()
     {
+        CancelDeployment();
         if (waveController != null)
         {
             waveController.WaveCalledEarly -= ResetCooldown;

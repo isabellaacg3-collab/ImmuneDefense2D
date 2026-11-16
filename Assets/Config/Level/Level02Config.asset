@@ -20,6 +20,7 @@ MonoBehaviour:
   initialHostHealth: 20
   waveStartEvents:
   - {fileID: 11400000, guid: 2fb683a00031da745bd905ed661c2f40, type: 2}
+  - {fileID: 11400000, guid: 8937733d868642aa8102faaf4a367a91, type: 2}
   openingTutorialCard: {fileID: 0}
   buildableTowers:
   - {fileID: 8699259914061437236, guid: 2c34a236c31940b4cb61fd1f71f5abb4, type: 3}
