@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
+  m_Name: SplitParentFirstAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
+  title: "\u5206\u88C2\u62DF\u6001\u4F53"
+  body: "\u5206\u88C2\u62DF\u6001\u4F53\u662F\u865A\u6784\u654C\u4EBA\u3002\u51FB\u8D25\u6BCD\u4F53\u540E\u4F1A\u51FA\u73B0\u4E24\u53EA\u5B50\u4F53\uFF0C\u5B83\u4EEC\u4F1A\u6CBF\u539F\u8DEF\u7EBF\u7EE7\u7EED\u524D\u8FDB\u3002\u522B\u5728\u6BCD\u4F53\u5012\u4E0B\u540E\u5C31\u64A4\u6389\u706B\u529B\u3002"

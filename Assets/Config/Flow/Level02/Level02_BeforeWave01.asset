@@ -16,7 +16,7 @@ MonoBehaviour:
   grantPoints: 100
   requiredTowerCount: 1
   pausePolicy: {fileID: 11400000, guid: 17139b92d9927a04b9ddd966f99ab4d6, type: 2}
-  tutorialCard: {fileID: 0}
+  tutorialCard: {fileID: 11400000, guid: 3493885293314c769dba94ed23e05d11, type: 2}
   requireReinforcementDeployment: 0
   unlockUpgradeTargets:
   - {fileID: 11400000, guid: 0636a9d520e703e4d8831791fbc2109d, type: 2}
