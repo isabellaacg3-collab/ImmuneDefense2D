@@ -18,7 +18,43 @@ public class GameStateController : MonoBehaviour
     private int nextPauseId = 1;
     private MonoBehaviour roadSkillSelection;
     private readonly HashSet<TowerConfig> unlockedTowerUpgrades = new HashSet<TowerConfig>();
+    private readonly Dictionary<TowerInstance, List<TowerInstance>> cappedTowers =
+        new Dictionary<TowerInstance, List<TowerInstance>>();
     public LevelConfig LevelConfig => levelConfig;
+    public bool TowerSaleUnlocked { get; private set; }
+
+    public void UnlockTowerSale()
+    {
+        TowerSaleUnlocked = true;
+    }
+
+    public void RegisterBuiltTower(TowerInstance prefab, TowerInstance tower)
+    {
+        if (levelConfig == null || levelConfig.GetTowerPlacementLimit(prefab) <= 0) return;
+
+        if (!cappedTowers.TryGetValue(prefab, out List<TowerInstance> towers))
+        {
+            towers = new List<TowerInstance>();
+            cappedTowers.Add(prefab, towers);
+        }
+        towers.Add(tower);
+    }
+
+    public void UnregisterBuiltTower(TowerInstance prefab, TowerInstance tower)
+    {
+        if (prefab != null && cappedTowers.TryGetValue(prefab, out List<TowerInstance> towers))
+        {
+            towers.Remove(tower);
+        }
+    }
+
+    public int CountBuiltTowers(TowerInstance prefab)
+    {
+        if (!cappedTowers.TryGetValue(prefab, out List<TowerInstance> towers)) return 0;
+
+        towers.RemoveAll(tower => tower == null);
+        return towers.Count;
+    }
 
     public bool IsPlaying
     {

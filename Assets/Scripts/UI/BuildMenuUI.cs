@@ -59,6 +59,8 @@ public class BuildMenuUI : MonoBehaviour
                 row.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rowHeight);
                 var label = button.GetComponentInChildren<TMP_Text>(true);
                 label.text = $"<b>{prefab.Config.DisplayName}</b>   <color=#C6E7D6>{prefab.Config.BuildCost} 免疫点</color>";
+                if (selectedSlot.TryGetTowerPlacementLimit(prefab, out int placed, out int maximum))
+                    label.text += $"  <size=80%>{placed}/{maximum}</size>";
                 button.onClick.AddListener(() => Build(prefab));
                 options.Add((button, prefab));
                 button.gameObject.SetActive(true);

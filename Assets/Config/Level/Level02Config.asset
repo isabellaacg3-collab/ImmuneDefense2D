@@ -16,12 +16,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ced9e0e143654edca8b9838bd9e124e7, type: 2}
   - {fileID: 11400000, guid: edf02ebcfb084d1381f06f413df49baa, type: 2}
   - {fileID: 11400000, guid: bfd8ede7fc094733bd25356aafcd416f, type: 2}
+  - {fileID: 11400000, guid: 1bf9e17e868641a5b78c45fe1c0fe845, type: 2}
+  - {fileID: 11400000, guid: c15e3a155dc3427f96977227a3bfa9bf, type: 2}
+  - {fileID: 11400000, guid: 0a60efeb5ca94901bf25049d17b3a7a2, type: 2}
+  - {fileID: 11400000, guid: d38d06efcc7e4b89a005e8d25ae32773, type: 2}
+  - {fileID: 11400000, guid: 45563c7913e6478381576da76b98cfce, type: 2}
   resourceConfig: {fileID: 11400000, guid: 93916c56427acce438c40ccf9d7e7de2, type: 2}
   initialHostHealth: 20
   waveStartEvents:
   - {fileID: 11400000, guid: 2fb683a00031da745bd905ed661c2f40, type: 2}
   - {fileID: 11400000, guid: 8937733d868642aa8102faaf4a367a91, type: 2}
+  - {fileID: 11400000, guid: a1db2285e7b6409b9888925b9c4f71ee, type: 2}
   openingTutorialCard: {fileID: 0}
   buildableTowers:
   - {fileID: 8699259914061437236, guid: 2c34a236c31940b4cb61fd1f71f5abb4, type: 3}
   - {fileID: 114000000000000004, guid: c7f878d877e34e24bd0cb7b15a0d6c71, type: 3}
+  towerPlacementLimits:
+  - prefab: {fileID: 114000000000000004, guid: c7f878d877e34e24bd0cb7b15a0d6c71, type: 3}
+    maximum: 3

@@ -11,25 +11,26 @@ public class TowerSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
     [SerializeField] private BuildMenuUI buildMenu;
     [SerializeField] private TowerActionUI towerActionUI;
     private TowerInstance currentTower;
+    private TowerInstance builtFromPrefab;
+    private int investedPoints;
     private bool pointerDownWhileTargeting;
     public IReadOnlyList<TowerInstance> BuildableTowers => gamestate.LevelConfig?.BuildableTowers;
 
-    public bool CanUpgrade
+    public bool IsUpgradeUnlocked
     {
         get
         {
-            if (!gamestate.CanBuild || currentTower == null)
-            {
-                return false;
-            }
-            TowerConfig config = currentTower.Config;
-            if (config == null || config.UpgradeTarget == null || config.UpgradeTarget == config)
-            {
-                return false;
-            }
-            return gamestate.IsTowerUpgradeUnlocked(config.UpgradeTarget);
+            TowerConfig config = currentTower != null ? currentTower.Config : null;
+            return config != null && config.UpgradeTarget != null && config.UpgradeTarget != config
+                && gamestate.IsTowerUpgradeUnlocked(config.UpgradeTarget);
         }
     }
+    public bool CanUpgrade => IsUpgradeUnlocked && gamestate.CanBuild && currentTower.Config.UpgradeCost >= 0
+        && immunePoints.Points >= currentTower.Config.UpgradeCost;
+    public bool IsSaleUnlocked => gamestate.TowerSaleUnlocked;
+    public bool CanSell => currentTower != null && IsSaleUnlocked && gamestate.CanBuild;
+    public int SaleRefund => investedPoints / 2;
+
     public event Action<TowerInstance> TowerBuilt;
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -64,6 +65,14 @@ public class TowerSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         }
 
     }
+    public bool TryGetTowerPlacementLimit(TowerInstance prefab, out int placed, out int maximum)
+    {
+        LevelConfig level = gamestate.LevelConfig;
+        maximum = level != null ? level.GetTowerPlacementLimit(prefab) : 0;
+        placed = maximum > 0 ? gamestate.CountBuiltTowers(prefab) : 0;
+        return maximum > 0;
+    }
+
     public bool CanBuild(TowerInstance prefab)
     {
         if (!gamestate.CanBuild || currentTower != null || prefab == null || prefab.Config == null)
@@ -74,7 +83,8 @@ public class TowerSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         LevelConfig level = gamestate.LevelConfig;
         bool allowed = level != null ? level.AllowsTower(prefab) : prefab == towerPrefab;
         int cost = prefab.Config.BuildCost;
-        return allowed && cost >= 0 && immunePoints.Points >= cost;
+        bool atLimit = TryGetTowerPlacementLimit(prefab, out int placed, out int maximum) && placed >= maximum;
+        return allowed && !atLimit && cost >= 0 && immunePoints.Points >= cost;
     }
 
     public bool TryBuild()
@@ -91,9 +101,29 @@ public class TowerSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
 
         currentTower = Instantiate(prefab, transform.position, Quaternion.identity);
         currentTower.Initialize(gamestate);
+        builtFromPrefab = prefab;
+        investedPoints = prefab.Config.BuildCost;
+        gamestate.RegisterBuiltTower(prefab, currentTower);
         TowerBuilt?.Invoke(currentTower);
         return true;
     }
+    public bool TrySell()
+    {
+        if (!CanSell) return false;
+
+        TowerInstance soldTower = currentTower;
+        int refund = SaleRefund;
+        currentTower = null;
+        investedPoints = 0;
+        gamestate.UnregisterBuiltTower(builtFromPrefab, soldTower);
+        builtFromPrefab = null;
+
+        soldTower.gameObject.SetActive(false);
+        Destroy(soldTower.gameObject);
+        immunePoints.Grant(refund);
+        return true;
+    }
+
     public bool TryUpgrade()
     {
         if (!CanUpgrade)
@@ -108,6 +138,7 @@ public class TowerSlot : MonoBehaviour, IPointerDownHandler, IPointerClickHandle
         }
         if (currentTower.TryApplyUpgrade())
         {
+            investedPoints += cost;
             return true;
         }
         else

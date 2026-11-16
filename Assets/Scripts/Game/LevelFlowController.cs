@@ -42,7 +42,7 @@ public class LevelFlowController : MonoBehaviour
         }
         activeWaveStartEvent = waveStartEvent;
         hasDeploymentDuringEvent = false;
-        if (waveStartEvent.RequireReinforcementDeployment)
+        if (waveStartEvent.UnlockReinforcement || waveStartEvent.RequireReinforcementDeployment)
         {
             reinforcementController.Unlock();
             reinforcementController.ResetCooldown();
@@ -54,6 +54,10 @@ public class LevelFlowController : MonoBehaviour
         if (waveStartEvent.UnlockAntibodyStorm && antibodyStorm != null)
         {
             antibodyStorm.Unlock();
+        }
+        if (waveStartEvent.UnlockTowerSale)
+        {
+            gameState.UnlockTowerSale();
         }
         immunePoints.Grant(waveStartEvent.GrantPoints);
         activePausedID = gameState.RequestPause(waveStartEvent.PausePolicy);

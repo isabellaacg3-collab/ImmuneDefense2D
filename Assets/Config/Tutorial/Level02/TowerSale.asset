@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
+  m_Name: TowerSale
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
+  title: "\u5854\u4F4D\u8C03\u6574\uFF1A\u62C6\u5854"
+  body: "\u70B9\u51FB\u5DF2\u5EFA\u9020\u7684\u5854\uFF0C\u518D\u9009\u62E9\u300C\u62C6\u9664\u300D\u3002\u62C6\u9664\u4F1A\u817E\u51FA\u5854\u4F4D\uFF0C\u5E76\u8FD4\u8FD8\u8FD9\u5EA7\u5854\u5B9E\u9645\u5EFA\u9020\u548C\u5347\u7EA7\u82B1\u8D39\u7684\u4E00\u534A\uFF0C\u70B9\u6570\u5411\u4E0B\u53D6\u6574\u3002"

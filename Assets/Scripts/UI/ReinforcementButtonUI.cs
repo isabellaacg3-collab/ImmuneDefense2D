@@ -14,13 +14,13 @@ public class ReinforcementButtonUI : MonoBehaviour
             && (controller.IsSelectingPosition || controller.CooldownRemaining <= 0f);
         if (!controller.IsUnlocked)
         {
-            buttonText.text = "X";
+            buttonText.text = "援军\n未解锁";
         }else if (controller.IsSelectingPosition)
         {
             buttonText.text = "取消部署";
         }else if(controller.CooldownRemaining > 0f)
         {
-            buttonText.text = $"{controller.CooldownRemaining:F1}";
+            buttonText.text = $"援军\n{Mathf.CeilToInt(controller.CooldownRemaining)} 秒";
         }
         else
         {

@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 public class AntibodyStormController : MonoBehaviour
 {
+    private const float MaxEarlyWaveCooldownReduction = 30f;
+
     [SerializeField] private GameStateController gameState;
+    [SerializeField] private WaveController waveController;
     [SerializeField] private EnemySpawner pathSource;
     [SerializeField] private Camera worldCamera;
     [SerializeField] private Button skillButton;
     [SerializeField] private TMP_Text buttonText;
     [SerializeField] private Sprite radiusSprite;
     [SerializeField] private Material radiusMaterial;
-    [SerializeField, Min(0.01f)] private float radius = 1.8f;
+    [SerializeField, Min(0.01f)] private float radius = 0.8f;
     [SerializeField, Min(1)] private int damage = 10;
     [SerializeField, Min(0f)] private float cooldownSeconds = 50f;
     [SerializeField, Min(0f)] private float maxDistanceFromRoad = 0.6f;
@@ -115,16 +118,17 @@ public class AntibodyStormController : MonoBehaviour
     private void LateUpdate()
     {
         if (preview != null) preview.enabled = false;
-        if (!IsSelectingPosition || !CanCast || Mouse.current == null) return;
+        Pointer pointer = Pointer.current;
+        if (!IsSelectingPosition || !CanCast || pointer == null) return;
 
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             CancelTargeting();
             RefreshButton();
             return;
         }
 
-        if (!RoadSkillTargeting.TryGetPointerPosition(worldCamera, out Vector3 position)
+        if (!RoadSkillTargeting.TryGetWorldPosition(worldCamera, pointer.position.ReadValue(), out Vector3 position)
             || !RoadSkillTargeting.TryProject(pathSource, position, maxDistanceFromRoad, out PathProjectionResult projection))
         {
             return;
@@ -138,7 +142,7 @@ public class AntibodyStormController : MonoBehaviour
             preview.enabled = true;
         }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame) TryCast(position);
+        if (pointer.press.wasPressedThisFrame) TryCast(position);
     }
 
     private void RefreshButton()
@@ -149,15 +153,28 @@ public class AntibodyStormController : MonoBehaviour
         if (!unlocked)
             buttonText.text = "抗体风暴\n未解锁";
         else if (IsSelectingPosition)
-            buttonText.text = "取消施放";
+            buttonText.text = "点击道路\n再次点击取消";
         else if (cooldownRemaining > 0f)
             buttonText.text = $"抗体风暴\n{Mathf.CeilToInt(cooldownRemaining)} 秒";
         else
             buttonText.text = "抗体风暴";
     }
 
+    private void HandleEarlyWave(float secondsSaved)
+    {
+        float reduction = Mathf.Clamp(secondsSaved, 0f, MaxEarlyWaveCooldownReduction);
+        cooldownRemaining = Mathf.Max(0f, cooldownRemaining - reduction);
+        RefreshButton();
+    }
+
+    private void OnEnable()
+    {
+        if (waveController != null) waveController.WaveCalledEarly += HandleEarlyWave;
+    }
+
     private void OnDisable()
     {
+        if (waveController != null) waveController.WaveCalledEarly -= HandleEarlyWave;
         CancelTargeting();
     }
 }

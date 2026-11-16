@@ -20,5 +20,5 @@ MonoBehaviour:
   slowRampSeconds: 1.5
   maximumSlowPercent: 0.2
   upgradeTarget: {fileID: 11400000, guid: 0636a9d520e703e4d8831791fbc2109d, type: 2}
-  upgradeCost: 0
+  upgradeCost: 150
   maxLinkedTargets: 1

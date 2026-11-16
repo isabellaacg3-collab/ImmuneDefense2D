@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a140849705b76a4d87d78f205a51b51, type: 3}
   m_Name: Level02ResourceConfig
   m_EditorClassIdentifier: Assembly-CSharp::ResourceConfig
-  initialImmunePoints: 100
+  initialImmunePoints: 175

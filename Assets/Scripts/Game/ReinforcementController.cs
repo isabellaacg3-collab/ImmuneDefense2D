@@ -171,16 +171,20 @@ public class ReinforcementController : MonoBehaviour
         }
         cooldownRemaining = Mathf.Max(0f, cooldownRemaining - Time.deltaTime);
     }
+    private void HandleEarlyWave(float secondsSaved)
+    {
+        ResetCooldown();
+    }
     private void OnEnable()
     {
-        waveController.WaveCalledEarly += ResetCooldown;
+        waveController.WaveCalledEarly += HandleEarlyWave;
     }
     private void OnDisable()
     {
         CancelDeployment();
         if (waveController != null)
         {
-            waveController.WaveCalledEarly -= ResetCooldown;
+            waveController.WaveCalledEarly -= HandleEarlyWave;
         }
     }
 }

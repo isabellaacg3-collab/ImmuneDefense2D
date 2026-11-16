@@ -27,5 +27,5 @@ MonoBehaviour:
     hostPointId: host_03
   startAtSeconds: 0
   startIntervalSeconds: 8
-  earlyCallEnabled: 0
+  earlyCallEnabled: 1
   earlyCallWindowSeconds: 0

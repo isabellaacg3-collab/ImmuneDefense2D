@@ -12,12 +12,14 @@ public static class RoadSkillTargeting
     public static bool TryGetPointerPosition(Camera worldCamera, out Vector3 position)
     {
         position = default;
-        if (worldCamera == null || Mouse.current == null)
-        {
-            return false;
-        }
+        return Mouse.current != null && TryGetWorldPosition(worldCamera, Mouse.current.position.ReadValue(), out position);
+    }
 
-        Vector2 screen = Mouse.current.position.ReadValue();
+    public static bool TryGetWorldPosition(Camera worldCamera, Vector2 screen, out Vector3 position)
+    {
+        position = default;
+        if (worldCamera == null) return false;
+
         if (EventSystem.current != null)
         {
             EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = screen }, UiHits);

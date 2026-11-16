@@ -12,6 +12,24 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private TutorialCardConfig openingTutorialCard;
     [SerializeField] private List<TowerInstance> buildableTowers = new List<TowerInstance>();
 
+    [System.Serializable]
+    private struct TowerPlacementLimit
+    {
+        public TowerInstance prefab;
+        [Min(1)] public int maximum;
+    }
+
+    [SerializeField] private List<TowerPlacementLimit> towerPlacementLimits = new List<TowerPlacementLimit>();
+
+    public int GetTowerPlacementLimit(TowerInstance prefab)
+    {
+        foreach (TowerPlacementLimit limit in towerPlacementLimits)
+        {
+            if (limit.prefab == prefab) return limit.maximum;
+        }
+        return 0;
+    }
+
     public IReadOnlyList<TowerInstance> BuildableTowers => buildableTowers;
 
     public bool AllowsTower(TowerInstance prefab)

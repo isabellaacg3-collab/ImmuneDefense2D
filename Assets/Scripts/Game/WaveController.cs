@@ -11,8 +11,8 @@ public class WaveController : MonoBehaviour
     private int nextWaveIndex = 0;
     private float lastWaveStartSeconds = 0f;
     private bool startRequested = false;
-    private bool earlyCallRequested = false;
-    public event Action WaveCalledEarly;
+    private float earlyCallSecondsSaved;
+    public event Action<float> WaveCalledEarly;
     public bool CanCallNextWaveEarly
     {
         get
@@ -45,7 +45,7 @@ public class WaveController : MonoBehaviour
             return false;
         }
         startRequested = true;
-        earlyCallRequested = true;
+        earlyCallSecondsSaved = GetRemainingWaitSeconds(levelConfig.Waves[nextWaveIndex]);
         return true;
     }
     private void ProcessWaveStartRequest()
@@ -65,15 +65,15 @@ public class WaveController : MonoBehaviour
             return;
         }
 
-        bool wasEarly = earlyCallRequested;
+        float secondsSaved = earlyCallSecondsSaved;
         startRequested = false;
-        earlyCallRequested = false;
+        earlyCallSecondsSaved = 0f;
 
         StartNextWave();
 
-        if (wasEarly)
+        if (secondsSaved > 0f)
         {
-            WaveCalledEarly?.Invoke();
+            WaveCalledEarly?.Invoke(secondsSaved);
         }
     }
     private void StartNextWave()
@@ -95,7 +95,7 @@ public class WaveController : MonoBehaviour
             && GetRemainingWaitSeconds(levelConfig.Waves[nextWaveIndex]) <= 0f)
         {
             startRequested = true;
-            earlyCallRequested = false;
+            earlyCallSecondsSaved = 0f;
         }
 
         // One shared preparation attempt per frame, so even overdue waves cannot chain-start.

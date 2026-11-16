@@ -57,4 +57,15 @@ public class RedBloodCellProducer : MonoBehaviour
         inTransit.Add(unit);
         timeUntilDispatch = dispatchInterval;
     }
+
+    private void OnDisable()
+    {
+        foreach (RedBloodCellTransportUnit unit in inTransit)
+        {
+            if (unit == null) continue;
+            unit.gameObject.SetActive(false);
+            Destroy(unit.gameObject);
+        }
+        inTransit.Clear();
+    }
 }
