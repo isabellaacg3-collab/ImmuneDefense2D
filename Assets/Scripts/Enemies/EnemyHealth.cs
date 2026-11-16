@@ -5,7 +5,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private EnemyConfig config;
     private int health;
     private bool isDead;
-
+    public event System.Action<EnemyHealth> Died;
+    public EnemyConfig Config => config;
     public bool IsAlive => !isDead && health > 0;
 
     public void TakeDamage(int damage)
@@ -31,6 +32,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 deathVisual = new EnemyVisualSnapshot(visual);
             }
+            Died?.Invoke(this);
             Destroy(gameObject);
             return true;
         }
@@ -64,7 +66,6 @@ public readonly struct EnemyVisualSnapshot
     public readonly int SortingLayerID;
     public readonly int SortingOrder;
     public readonly Material Material;
-
     public EnemyVisualSnapshot(SpriteRenderer renderer)
     {
         Sprite = renderer.sprite;

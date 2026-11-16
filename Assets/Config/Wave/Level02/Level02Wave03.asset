@@ -19,6 +19,12 @@ MonoBehaviour:
     spawnInterval: 1
     spawnPointId: spawn_03
     hostPointId: host_03
+  - startOffsetSeconds: 8
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 1
+    spawnInterval: 1
+    spawnPointId: spawn_03
+    hostPointId: host_03
   startAtSeconds: 0
   startIntervalSeconds: 8
   earlyCallEnabled: 0

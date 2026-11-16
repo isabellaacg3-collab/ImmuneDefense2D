@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
             int count = 0;
             foreach(EnemyHealth enemy in spawnedEnemies)
             {
-                if(enemy != null && enemy.GetComponent<EnemyMovement>().CountsForVictory)
+                if(enemy != null && enemy.IsAlive && enemy.GetComponent<EnemyMovement>().CountsForVictory)
                 {
                     count++;
                 }
@@ -71,11 +71,31 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy(GameObject prefab, Transform spawnPoint, Transform exitPoint)
     {
         GameObject enemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-        spawnedEnemies.Add(enemy.GetComponent<EnemyHealth>());
+        EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+        spawnedEnemies.Add(health);
+        health.Died += HandleEnemyDied;
         EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
         float lateralOffset = UnityEngine.Random.Range(-pathOffsetConfig.MaxLateralOffset,pathOffsetConfig.MaxLateralOffset);
         movement.Initialize(waypoints,hostHealth,transform,exitPoint, gameState,lateralOffset,pathOffsetConfig.TransitionDistance);
         movement.EnteredCombat += HandleEnemyEnteredCombat;
+    }
+    private void HandleEnemyDied(EnemyHealth enemy)
+    {
+        EnemyConfig config = enemy.Config;
+        EnemyMovement parent = enemy.GetComponent<EnemyMovement>();
+        if (!parent.CanBeTargeted || config.SplitChildPrefab == null || config.SplitCount <= 0)
+        {
+            return;
+        }
+
+        float laneLimit = pathOffsetConfig.MaxLateralOffset;
+        for (int i = 0; i < config.SplitCount; i++)
+        {
+            float lane = config.SplitCount == 1 ? 0f : Mathf.Lerp(-laneLimit, laneLimit, (float)i / (config.SplitCount - 1));
+            EnemyMovement child = Instantiate(config.SplitChildPrefab, enemy.transform.position, Quaternion.identity);
+            child.InitializeFromParent(parent, lane);
+            spawnedEnemies.Add(child.GetComponent<EnemyHealth>());
+        }
     }
     public void StartWave(WaveConfig wave)
     {

@@ -77,6 +77,21 @@ public class EnemyMovement : MonoBehaviour
         }
         currentWaypointIndex = 0;
     }
+    public void InitializeFromParent(EnemyMovement parent, float childLaneOffset)
+    {
+        waypoints = parent.waypoints;
+        gatherPoint = parent.gatherPoint;
+        exitPoint = parent.exitPoint;
+        hostHealth = parent.hostHealth;
+        gameState = parent.gameState;
+        pathPosition = parent.pathPosition;
+        currentWaypointIndex = parent.currentWaypointIndex;
+        combatPathLength = parent.combatPathLength;
+        combatDistance = parent.combatDistance;
+        transitionDistance = parent.transitionDistance;
+        lateralOffset = Mathf.Lerp(parent.lateralOffset, childLaneOffset, 0.4f);
+        phase = MovePhase.Combat;
+    }
     private Vector3 GetPathPoint(int index)
     {
         if (index < 0)

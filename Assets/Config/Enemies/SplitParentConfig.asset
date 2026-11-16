@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9d8de52e3b1074fbeb4758966a195c, type: 3}
+  m_Name: SplitParentConfig
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
+  maxHealth: 12
+  moveSpeed: 0.85
+  hostDamage: 1
+  firstAppearanceCard: {fileID: 0}
+  splitChildPrefab: {fileID: 7709012042737787364, guid: 6106f3373cf64902b8684df7a5513660, type: 3}
+  splitCount: 2
