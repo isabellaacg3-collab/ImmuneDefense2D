@@ -6,7 +6,8 @@ public class SpawnGroupConfig
     [SerializeField] private float startOffsetSeconds = 0f;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int enemyCount = 5;
-    [SerializeField] private float spawnInterval = 2f;
+    [SerializeField, Min(0f)] private float spawnInterval = 2f;
+    [SerializeField, Min(0f)] private float gatherTravelSeconds;
     [SerializeField] private string spawnPointId = "";
     [SerializeField] private string hostPointId = "";
     public float StartOffsetSeconds
@@ -37,6 +38,8 @@ public class SpawnGroupConfig
             return spawnInterval;
         }
     }
+    public float GatherTravelSeconds => gatherTravelSeconds;
+
     public string SpawnPointId
     {
         get

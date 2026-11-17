@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using System.Collections;
 using System;
@@ -12,7 +13,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<ScenePointBinding> RealHostPoints = new List<ScenePointBinding>();
     [SerializeField] private EnemyPathOffsetConfig pathOffsetConfig;
     private int spawningGroupCount = 0;
-    private List<EnemyHealth> spawnedEnemies = new List<EnemyHealth>();
+    private readonly List<EnemyHealth> spawnedEnemies = new List<EnemyHealth>();
+    private ReadOnlyCollection<EnemyHealth> spawnedEnemiesView;
     public event Action<EnemyConfig> EnemyEnteredCombat;
     public bool IsSpawning
     {
@@ -21,14 +23,22 @@ public class EnemySpawner : MonoBehaviour
             return spawningGroupCount > 0;
         }
     }
+    public IReadOnlyList<EnemyHealth> SpawnedEnemies
+    {
+        get
+        {
+            spawnedEnemies.RemoveAll(enemy => enemy == null || !enemy.IsAlive);
+            return spawnedEnemiesView ??= spawnedEnemies.AsReadOnly();
+        }
+    }
     public int AliveCount
     {
         get
         {
             int count = 0;
-            foreach(EnemyHealth enemy in spawnedEnemies)
+            foreach (EnemyHealth enemy in SpawnedEnemies)
             {
-                if(enemy != null && enemy.IsAlive && enemy.GetComponent<EnemyMovement>().CountsForVictory)
+                if (enemy.GetComponent<EnemyMovement>().CountsForVictory)
                 {
                     count++;
                 }
@@ -68,31 +78,28 @@ public class EnemySpawner : MonoBehaviour
         }
         return null;
     }
-    private void SpawnEnemy(GameObject prefab, Transform spawnPoint, Transform exitPoint)
+    private void SpawnEnemy(GameObject prefab, Transform spawnPoint, Transform exitPoint, float gatherTravelSeconds)
     {
         GameObject enemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-        EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-        spawnedEnemies.Add(health);
-        health.Died += HandleEnemyDied;
         EnemyMovement movement = enemy.GetComponent<EnemyMovement>();
         float lateralOffset = UnityEngine.Random.Range(-pathOffsetConfig.MaxLateralOffset,pathOffsetConfig.MaxLateralOffset);
-        movement.Initialize(waypoints,hostHealth,transform,exitPoint, gameState,lateralOffset,pathOffsetConfig.TransitionDistance);
+        movement.Initialize(waypoints, hostHealth, this, exitPoint, gameState, lateralOffset,
+            pathOffsetConfig.TransitionDistance, gatherTravelSeconds);
         movement.EnteredCombat += HandleEnemyEnteredCombat;
+        spawnedEnemies.Add(enemy.GetComponent<EnemyHealth>());
     }
-    private void HandleEnemyDied(EnemyHealth enemy)
+    public void SpawnChildren(EnemyMovement prefab, EnemyMovement parent, int count)
     {
-        EnemyConfig config = enemy.Config;
-        EnemyMovement parent = enemy.GetComponent<EnemyMovement>();
-        if (!parent.CanBeTargeted || config.SplitChildPrefab == null || config.SplitCount <= 0)
+        if (prefab == null || parent == null || parent.Spawner != this || count <= 0)
         {
             return;
         }
 
         float laneLimit = pathOffsetConfig.MaxLateralOffset;
-        for (int i = 0; i < config.SplitCount; i++)
+        for (int i = 0; i < count; i++)
         {
-            float lane = config.SplitCount == 1 ? 0f : Mathf.Lerp(-laneLimit, laneLimit, (float)i / (config.SplitCount - 1));
-            EnemyMovement child = Instantiate(config.SplitChildPrefab, enemy.transform.position, Quaternion.identity);
+            float lane = count == 1 ? 0f : Mathf.Lerp(-laneLimit, laneLimit, (float)i / (count - 1));
+            EnemyMovement child = Instantiate(prefab, parent.transform.position, Quaternion.identity);
             child.InitializeFromParent(parent, lane);
             spawnedEnemies.Add(child.GetComponent<EnemyHealth>());
         }
@@ -130,8 +137,8 @@ public class EnemySpawner : MonoBehaviour
                 spawningGroupCount--;
                 yield break;
             }
-            SpawnEnemy(group.EnemyPrefab,spawnPoint,exitPoint);
-            if(tempCount < group.EnemyCount - 1)
+            SpawnEnemy(group.EnemyPrefab, spawnPoint, exitPoint, group.GatherTravelSeconds);
+            if (tempCount < group.EnemyCount - 1 && group.SpawnInterval > 0f)
             {
                 yield return WaitForSimulationSeconds(group.SpawnInterval);
             }

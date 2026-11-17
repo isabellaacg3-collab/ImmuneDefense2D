@@ -51,7 +51,7 @@ public class TowerAttack : MonoBehaviour
             {
                 continue;
             }
-            bool killed = enemy.TryTakeDamage(attackDamage, out EnemyVisualSnapshot deathVisual);
+            bool killed = enemy.TryTakeDamage(attackDamage,EnemyDamageType.Swallow ,out EnemyVisualSnapshot deathVisual);
             if (killed)
             {
                 TargetKilled?.Invoke(enemy, deathVisual);

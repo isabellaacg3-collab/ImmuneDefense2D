@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8042585283872804542}
   - component: {fileID: 8769626370182427372}
   - component: {fileID: 7709012042737787364}
+  - component: {fileID: 3254419055016701992}
   m_Layer: 0
   m_Name: SplitParent
   m_TagString: Untagged
@@ -119,3 +120,17 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   config: {fileID: 11400000, guid: 903212c8a6a84989b42936797d0773c5, type: 2}
+--- !u!114 &3254419055016701992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3084490110210825604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9d432e6ad24cd6a41059f8ed9cac79, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::SplitOnDeath
+  childPrefab: {fileID: 7709012042737787364, guid: 6106f3373cf64902b8684df7a5513660, type: 3}
+  childCount: 2

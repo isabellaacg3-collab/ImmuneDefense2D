@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
   maxHealth: 12
   moveSpeed: 0.85
-  hostDamage: 1
+  hostDamage: 2
+  swallowArmor: 0
+  antibodyArmor: 0
   firstAppearanceCard: {fileID: 11400000, guid: a5ced69514704b7085c0288b3d3a49a8, type: 2}
-  splitChildPrefab: {fileID: 7709012042737787364, guid: 6106f3373cf64902b8684df7a5513660, type: 3}
-  splitCount: 2

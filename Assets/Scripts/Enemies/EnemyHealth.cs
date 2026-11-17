@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private EnemyConfig config;
-    private int health;
+    private float health;
     private bool isDead;
     public event System.Action<EnemyHealth> Died;
     public EnemyConfig Config => config;
@@ -17,21 +17,33 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage,EnemyDamageType damageType)
     {
-        TryTakeDamage(damage, out _);
+        TryTakeDamage(damage,damageType ,out _);
     }
 
     // True only for the call that delivers lethal damage; capture visuals before Destroy.
-    public bool TryTakeDamage(int damage, out EnemyVisualSnapshot deathVisual)
+    public bool TryTakeDamage(int damage,EnemyDamageType damageType ,out EnemyVisualSnapshot deathVisual)
     {
         deathVisual = default;
         if (!IsAlive || damage <= 0)
         {
             return false;
         }
-        health -= damage;
-        if(health <= 0)
+        float armor = 0f;
+        switch (damageType)
+        {
+            case EnemyDamageType.Swallow:
+                armor = config.SwallowArmor;
+                break;
+            case EnemyDamageType.Antibody:
+                float bonus = TryGetComponent(out DensityDefense density) ? density.AntibodyArmorBonus : 0f;
+                armor = Mathf.Clamp(config.AntibodyArmor + bonus, 0f, 0.95f);
+                break;
+        }
+
+        health -= damage * (1f - armor);
+        if (health <= 0)
         {
             health = 0;
             isDead = true;
@@ -48,11 +60,11 @@ public class EnemyHealth : MonoBehaviour
         return false;
     }
 
-    [ContextMenu("Test Damage")]
+    /*[ContextMenu("Test Damage")]
     private void TestDamage()
     {
         TakeDamage(1);
-    }
+    }*/
     private void Awake()
     {
         health = config.MaxHealth;

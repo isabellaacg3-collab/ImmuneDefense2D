@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef6e635be9e440b4882d7d3857ae39ec, type: 3}
+  m_Name: EColiFirstAppearance
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialCardConfig
+  title: "大肠杆菌｜同类集群"
+  body: "大肠杆菌常见于人和动物肠道，多数类型无害。游戏中，三只或更多大肠杆菌聚在一起时会获得集群护甲，减轻抗体伤害。集群被打散后，护甲还会维持片刻。优先用中性粒细胞或援军吞噬其中几只，打散集群后再用抗体风暴。"

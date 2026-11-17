@@ -14,12 +14,339 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
   groups:
   - startOffsetSeconds: 0
-    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
-    enemyCount: 2
-    spawnInterval: 1
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
     spawnPointId: spawn_01
     hostPointId: host_01
-  startAtSeconds: 0
-  startIntervalSeconds: 8
+  - startOffsetSeconds: 1
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.3
+    spawnPointId: spawn_02
+    hostPointId: host_03
+  - startOffsetSeconds: 1.2
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.14
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 2
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 2
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 2
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 2.4
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 2
+    spawnInterval: 1.51
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 6.66
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 8.11
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.51
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 9
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_02
+  - startOffsetSeconds: 9
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_03
+  - startOffsetSeconds: 9
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_01
+  - startOffsetSeconds: 9.31
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 2
+    spawnInterval: 2.2
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 10
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.3
+    spawnPointId: spawn_03
+    hostPointId: host_01
+  - startOffsetSeconds: 13.32
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 14.52
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.14
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 15.72
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 2
+    spawnInterval: 1.51
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 16
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_03
+  - startOffsetSeconds: 16
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_01
+  - startOffsetSeconds: 16
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_02
+  - startOffsetSeconds: 18
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.3
+    spawnPointId: spawn_01
+    hostPointId: host_02
+  - startOffsetSeconds: 20.72
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 22.17
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.14
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 23
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 23
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 23
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 23.37
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 2
+    spawnInterval: 2.2
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 27
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.3
+    spawnPointId: spawn_02
+    hostPointId: host_03
+  - startOffsetSeconds: 28.12
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 29.32
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.51
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 30
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_02
+  - startOffsetSeconds: 30
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_03
+  - startOffsetSeconds: 30
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_01
+  - startOffsetSeconds: 30.52
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.14
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 31.72
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 2
+    spawnInterval: 2.2
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 35.52
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 36
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.3
+    spawnPointId: spawn_03
+    hostPointId: host_01
+  - startOffsetSeconds: 36.97
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.14
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 37
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_03
+  - startOffsetSeconds: 37
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_01
+  - startOffsetSeconds: 37
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_02
+  - startOffsetSeconds: 38.17
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 2
+    spawnInterval: 1.51
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 39.37
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 2
+    spawnInterval: 2.2
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 42.92
+    enemyPrefab: {fileID: 3084490110210825604, guid: 0a44d5cdf076dc54c85163cb8df978af, type: 3}
+    enemyCount: 3
+    spawnInterval: 1.92
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 44.12
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.14
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 45
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  - startOffsetSeconds: 45
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 45
+    enemyPrefab: {fileID: 3084490110210825604, guid: ef0ca4c560cd41ae8bb12f3a3406040d, type: 3}
+    enemyCount: 2
+    spawnInterval: 0
+    gatherTravelSeconds: 3.5
+    spawnPointId: spawn_03
+    hostPointId: host_03
+  - startOffsetSeconds: 45
+    enemyPrefab: {fileID: 3084490110210825604, guid: 13d86f6b72e4461caf10efe6319d60b0, type: 3}
+    enemyCount: 4
+    spawnInterval: 1.3
+    spawnPointId: spawn_01
+    hostPointId: host_02
+  - startOffsetSeconds: 45.32
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 2
+    spawnInterval: 1.51
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 48.84
+    enemyPrefab: {fileID: 3084490110210825604, guid: 4d279fed45f955e42933dc109465a295, type: 3}
+    enemyCount: 5
+    spawnInterval: 1.51
+    spawnPointId: spawn_02
+    hostPointId: host_02
+  - startOffsetSeconds: 50.29
+    enemyPrefab: {fileID: 3084490110210825604, guid: 2d2d72547d5e35742be793d34c94f80a, type: 3}
+    enemyCount: 5
+    spawnInterval: 1.14
+    spawnPointId: spawn_01
+    hostPointId: host_01
+  startAtSeconds: 314
+  startIntervalSeconds: 47
   earlyCallEnabled: 1
-  earlyCallWindowSeconds: 0
+  earlyCallWindowSeconds: 10

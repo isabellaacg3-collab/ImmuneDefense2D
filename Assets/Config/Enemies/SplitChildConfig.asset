@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9d8de52e3b1074fbeb4758966a195c, type: 3}
   m_Name: SplitChildConfig
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  maxHealth: 3
-  moveSpeed: 1.05
+  maxHealth: 4
+  moveSpeed: 1.1
   hostDamage: 1
+  swallowArmor: 0
+  antibodyArmor: 0
   firstAppearanceCard: {fileID: 0}

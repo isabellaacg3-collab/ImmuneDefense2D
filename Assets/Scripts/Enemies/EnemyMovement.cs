@@ -19,6 +19,9 @@ public class EnemyMovement : MonoBehaviour
     private float lateralOffset;
     private float transitionDistance;
     private Vector3 pathPosition;
+    private Vector3 spawnPosition;
+    private float gatherTravelSeconds;
+    private float gatherElapsedSeconds;
     private float combatPathLength;
     private float combatDistance;
     private Dictionary<TowerAttack, float> slowMultipliers = new Dictionary<TowerAttack, float>();
@@ -49,24 +52,29 @@ public class EnemyMovement : MonoBehaviour
             return blockers.Count;
         }
     }
+    public EnemySpawner Spawner { get; private set; }
     public event Action<EnemyConfig> EnteredCombat;
     private void ReachHost()
     {
         phase = MovePhase.Outgoing;
         hostHealth.TakeDamage(hostDamage);
     }
-    public void Initialize(List<Transform>path,HostHealth host, Transform gatherPoint, Transform exitPoint, GameStateController gameState,
-        float lateralOffset, float transitionDistance)
+    public void Initialize(List<Transform> path, HostHealth host, EnemySpawner spawner, Transform exitPoint, GameStateController gameState,
+        float lateralOffset, float transitionDistance, float gatherTravelSeconds)
     {
         phase = MovePhase.Incoming;
         waypoints = path;
         hostHealth = host;
-        this.gatherPoint = gatherPoint;
+        Spawner = spawner;
+        gatherPoint = spawner.transform;
         this.exitPoint = exitPoint;
         this.gameState = gameState;
         this.lateralOffset = lateralOffset;
         this.transitionDistance = transitionDistance;
         pathPosition = transform.position;
+        spawnPosition = pathPosition;
+        this.gatherTravelSeconds = gatherTravelSeconds;
+        gatherElapsedSeconds = 0f;
         combatPathLength = 0f;
         combatDistance = 0f;
         Vector3 previousPoint = gatherPoint.position;
@@ -80,6 +88,7 @@ public class EnemyMovement : MonoBehaviour
     public void InitializeFromParent(EnemyMovement parent, float childLaneOffset)
     {
         waypoints = parent.waypoints;
+        Spawner = parent.Spawner;
         gatherPoint = parent.gatherPoint;
         exitPoint = parent.exitPoint;
         hostHealth = parent.hostHealth;
@@ -198,15 +207,19 @@ public class EnemyMovement : MonoBehaviour
         }
         Vector3 previousPosition = pathPosition;
 
-        pathPosition = Vector3.MoveTowards(
-            pathPosition,
-            target.position,
-            moveSpeed * Time.deltaTime * GetSlowMultiplier()
-        );
-
-        if (Vector3.Distance(pathPosition, target.position) < 0.01f)
+        bool timedEntrance = phase == MovePhase.Incoming && gatherTravelSeconds > 0f;
+        if (timedEntrance)
         {
-            pathPosition = target.position;
+            gatherElapsedSeconds += Time.deltaTime;
+            pathPosition = Vector3.Lerp(spawnPosition, target.position, gatherElapsedSeconds / gatherTravelSeconds);
+        }
+        else
+        {
+            pathPosition = Vector3.MoveTowards(pathPosition, target.position, moveSpeed * Time.deltaTime * GetSlowMultiplier());
+            if (Vector3.Distance(pathPosition, target.position) < 0.01f)
+            {
+                pathPosition = target.position;
+            }
         }
 
         bool intercepted = phase == MovePhase.Combat && TryInterceptTransport(previousPosition);
@@ -236,7 +249,10 @@ public class EnemyMovement : MonoBehaviour
             transform.position = pathPosition + side * lateralOffset * fade;
         }
 
-        if (!intercepted && Vector3.Distance(pathPosition, target.position) < 0.01f)
+        bool reachedTarget = timedEntrance
+            ? gatherElapsedSeconds >= gatherTravelSeconds
+            : Vector3.Distance(pathPosition, target.position) < 0.01f;
+        if (!intercepted && reachedTarget)
         {
             switch (phase)
             {

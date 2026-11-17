@@ -6,12 +6,12 @@ public class EnemyConfig : ScriptableObject
     [SerializeField] private int maxHealth;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int hostDamage;
+    [SerializeField, Range(0f, 0.95f)] private float swallowArmor;
+    [SerializeField, Range(0f, 0.95f)] private float antibodyArmor;
     [SerializeField] private TutorialCardConfig firstAppearanceCard;
-    [SerializeField] private EnemyMovement splitChildPrefab;
-    [SerializeField, Min(0)] private int splitCount;
 
-    public EnemyMovement SplitChildPrefab => splitChildPrefab;
-    public int SplitCount => splitCount;
+    public float SwallowArmor => swallowArmor;
+    public float AntibodyArmor => antibodyArmor;
 
     public int MaxHealth
     {

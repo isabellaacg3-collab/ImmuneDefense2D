@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class AntibodyStormController : MonoBehaviour
 {
     private const float MaxEarlyWaveCooldownReduction = 30f;
-
     [SerializeField] private GameStateController gameState;
     [SerializeField] private WaveController waveController;
     [SerializeField] private EnemySpawner pathSource;
@@ -102,7 +101,7 @@ public class AntibodyStormController : MonoBehaviour
         // Lethal damage can spawn eligible children synchronously. Only hit the original snapshot.
         foreach (EnemyHealth enemy in targets)
         {
-            if (enemy != null) enemy.TakeDamage(damage);
+            if (enemy != null) enemy.TakeDamage(damage,EnemyDamageType.Antibody);
         }
     }
 

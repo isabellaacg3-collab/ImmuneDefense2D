@@ -111,7 +111,7 @@ public class ReinforcementUnit : MonoBehaviour
                 blockedEnemy = movement;
                 if(attackTimer >= config.AttackInterval)
                 {
-                    target.TakeDamage(config.AttackDamage);
+                    target.TakeDamage(config.AttackDamage,EnemyDamageType.Swallow);
                     attackTimer = 0;
                 }
             }
