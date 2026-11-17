@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
-using UnityEditor.PackageManager;
+using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 using UnityEngine;
 
 public static class WindowsBetaBuild
