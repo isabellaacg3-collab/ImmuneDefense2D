@@ -1,4 +1,4 @@
-ImmuneDefense2D 0.2.0-beta.1
+ImmuneDefense2D beta
 Windows x64 Beta
 
 运行

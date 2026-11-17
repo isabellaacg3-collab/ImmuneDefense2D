@@ -1,7 +1,8 @@
-# ImmuneDefense2D 0.2.0-beta.1
+# ImmuneDefense2D beta
 
-Windows x64 预发布版。下载 `ImmuneDefense2D-0.2.0-beta.1-Windows-x64.zip` 并完整解压，双击 `ImmuneDefense2D.exe` 启动。
+Windows x64 预发布版。下载 `ImmuneDefense2D-beta-Windows-x64.zip` 并完整解压，双击 `ImmuneDefense2D.exe` 启动。
 
+- 修复第一关援军按钮在较小窗口中移出画面的问题。
 - 人体地图提供「骨髓防御训练」与「肠道防线」两个关卡入口。第一关胜利后解锁第二关，重启后保留通关状态。
 - 点击关卡图标可查看详情。暂停时可以放弃当前局并返回选关，胜败结算提供重试和返回。
 - 第二关加入八波防守、红细胞运输、塔升级与拆除、抗体风暴、分裂体和大肠杆菌集群护甲。

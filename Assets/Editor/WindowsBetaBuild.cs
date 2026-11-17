@@ -9,7 +9,7 @@ using UnityEngine;
 
 public static class WindowsBetaBuild
 {
-    private const string Version = "0.2.0-beta.1";
+    private const string Version = "beta";
     private const string EditorVersion = "6000.3.19f1";
     private const string ProductName = "ImmuneDefense2D";
     private static readonly string[] ReleaseScenes =

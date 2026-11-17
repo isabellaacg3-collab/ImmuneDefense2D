@@ -4,7 +4,7 @@
 
 玩家通过建造中性粒细胞防御塔、部署援军和管理免疫点数，阻止敌人沿道路抵达宿主，同时通过教程与知识卡了解相关免疫学概念。
 
-当前版本：**0.2.0-beta.1**<br>
+当前版本：**beta**<br>
 运行平台：**Windows x86_64**  
 作者：**isa.ss**
 
@@ -54,11 +54,11 @@
 
 发布包名称：
 
-`ImmuneDefense2D-0.2.0-beta.1-Windows-x64.zip`
+`ImmuneDefense2D-beta-Windows-x64.zip`
 
 运行发布包不需要安装 Unity Editor。
 
-[发布说明](Documentation/Release/0.2.0-beta.1/RELEASE_NOTES.md) · [Windows 构建步骤](Documentation/Release/0.2.0-beta.1/BUILD.md)
+[发布说明](Documentation/Release/beta/RELEASE_NOTES.md) · [Windows 构建步骤](Documentation/Release/beta/BUILD.md)
 
 ## 从源码运行
 
