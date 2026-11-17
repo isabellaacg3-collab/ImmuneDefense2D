@@ -3,7 +3,7 @@ Windows x64 Beta
 
 运行
 1. 完整解压 ZIP 到本地文件夹。
-2. 双击 ImmuneDefense2D.exe。请保留同目录的 _Data 文件夹、DLL 和其他运行依赖。
+2. 双击 ImmuneDefense2D.exe，以 1920×1080 全屏启动。请保留同目录的 _Data 文件夹、DLL 和其他运行依赖。
 3. 在人体地图上点击骨髓入口，打开关卡详情，再点击「进入关卡」。
 
 操作
