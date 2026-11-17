@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuUI : MonoBehaviour
 {
@@ -34,6 +35,14 @@ public class PauseMenuUI : MonoBehaviour
         pauseID = 0;
         panel.SetActive(false);
     }
+    public void ReturnToLevelSelect()
+    {
+        if (pauseID != 0 && gameState.State != LevelState.Victory && gameState.State != LevelState.Defeat)
+        {
+            SceneManager.LoadScene("LevelSelect");
+        }
+    }
+
     private void Update()
     {
         if(Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame)

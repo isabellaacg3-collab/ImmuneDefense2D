@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -37,6 +36,14 @@ public class GameResultUI : MonoBehaviour
             gameState.StateChanged -= RefreshResult;
         }
     }
+    public void ReturnToLevelSelect()
+    {
+        if (gameState.State == LevelState.Victory || gameState.State == LevelState.Defeat)
+        {
+            SceneManager.LoadScene("LevelSelect");
+        }
+    }
+
     public void RestartLevel()
     {
         Scene currentScene = SceneManager.GetActiveScene();

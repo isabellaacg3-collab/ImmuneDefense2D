@@ -161,6 +161,7 @@ public class GameStateController : MonoBehaviour
             return;
         }
         state = LevelState.Victory;
+        LevelProgress.RecordOutcome(gameObject.scene.name, state);
         StateChanged?.Invoke(State);
     }
     public event Action<LevelState> StateChanged;
@@ -171,6 +172,7 @@ public class GameStateController : MonoBehaviour
             return;
         }
         state = LevelState.Defeat;
+        LevelProgress.RecordOutcome(gameObject.scene.name, state);
         StateChanged?.Invoke(State);
     }
     private void OnEnable()
