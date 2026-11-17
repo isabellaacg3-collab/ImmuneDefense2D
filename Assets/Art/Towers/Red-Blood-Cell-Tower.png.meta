@@ -1,7 +1,37 @@
 fileFormatVersion: 2
-guid: 2ec6dc9a738849a9a1b6484a70e19225
+guid: 142fdab7299e44aea7ef8530e675a313
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1882903644572074652
+    second: Neutrophil-Body-v1_0
+  - first:
+      213: -4390359142467371769
+    second: Neutrophil-Body-v1_1
+  - first:
+      213: -341951185115432364
+    second: Neutrophil-Body-v1_2
+  - first:
+      213: 1687480375830757899
+    second: Neutrophil-Body-v1_3
+  - first:
+      213: -2536907734489992937
+    second: Neutrophil-Body-v1_4
+  - first:
+      213: -3917693284777364041
+    second: Neutrophil-Body-v1_5
+  - first:
+      213: 5576909615971776408
+    second: Neutrophil-Body-v1_6
+  - first:
+      213: 1354684210141129529
+    second: Neutrophil-Body-v1_7
+  - first:
+      213: 1718364641503517459
+    second: Neutrophil-Body-v1_8
+  - first:
+      213: 3020437658616456736
+    second: Neutrophil-Body-v1_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +78,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 1080
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -109,7 +139,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Neutrophil-Body-v1_0: -1882903644572074652
+      Neutrophil-Body-v1_1: -4390359142467371769
+      Neutrophil-Body-v1_2: -341951185115432364
+      Neutrophil-Body-v1_3: 1687480375830757899
+      Neutrophil-Body-v1_4: -2536907734489992937
+      Neutrophil-Body-v1_5: -3917693284777364041
+      Neutrophil-Body-v1_6: 5576909615971776408
+      Neutrophil-Body-v1_7: 1354684210141129529
+      Neutrophil-Body-v1_8: 1718364641503517459
+      Neutrophil-Body-v1_9: 3020437658616456736
   mipmapLimitGroupName:
   pSDRemoveMatte: 0
   userData:

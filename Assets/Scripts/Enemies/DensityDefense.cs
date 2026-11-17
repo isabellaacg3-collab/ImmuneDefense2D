@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -9,7 +10,19 @@ public sealed class DensityDefense : MonoBehaviour
 
     public float Radius => radius;
     public int MinimumEnemyCount => minimumEnemyCount;
-    public bool IsActive { get; set; }
+    private bool isActive;
+    public event Action Activated;
+    public bool IsActive
+    {
+        get => isActive;
+        set
+        {
+            if (isActive == value) return;
+
+            isActive = value;
+            if (isActive) Activated?.Invoke();
+        }
+    }
     public float AntibodyArmorBonus => isActiveAndEnabled && IsActive ? antibodyArmorBonus : 0f;
     public float ArmorExpiresAt { get; set; }
 }

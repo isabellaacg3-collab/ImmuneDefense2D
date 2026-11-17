@@ -5,6 +5,8 @@ public class NeutrophilVisualConfig : ScriptableObject
 {
     [Header("Art (optional: existing cell sprite and a solid tentacle are the fallback)")]
     [SerializeField] private Sprite bodySprite;
+    [SerializeField] private TowerConfig upgradedTowerConfig;
+    [SerializeField] private Sprite upgradedBodySprite;
     [SerializeField] private Color bodyTint = Color.white;
     [SerializeField] private Texture2D tentacleTexture;
     [SerializeField] private Material tentacleMaterial;
@@ -29,7 +31,8 @@ public class NeutrophilVisualConfig : ScriptableObject
     [SerializeField] private int tentacleSortingOffset = -1;
     [SerializeField] private int ghostSortingOffset = 1;
 
-    public Sprite BodySprite => bodySprite;
+    public Sprite GetBodySprite(TowerConfig towerConfig) => upgradedTowerConfig != null && towerConfig == upgradedTowerConfig && upgradedBodySprite != null
+        ? upgradedBodySprite : bodySprite;
     public Color BodyTint => bodyTint;
     public Texture2D TentacleTexture => tentacleTexture;
     public Material TentacleMaterial => tentacleMaterial;

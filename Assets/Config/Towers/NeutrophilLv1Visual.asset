@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e7242a96ef2eeb74d679675fb7d65a, type: 3}
   m_Name: NeutrophilLv1Visual
   m_EditorClassIdentifier: Assembly-CSharp::NeutrophilVisualConfig
-  bodySprite: {fileID: 21300000, guid: 3fef29573c031c442b4647b5ddb31aaf, type: 3}
+  bodySprite: {fileID: 21300000, guid: 461fcdd95e424e048d4981c9f31606cc, type: 3}
+  upgradedTowerConfig: {fileID: 11400000, guid: 0636a9d520e703e4d8831791fbc2109d, type: 2}
+  upgradedBodySprite: {fileID: 21300000, guid: 3fef29573c031c442b4647b5ddb31aaf, type: 3}
   bodyTint: {r: 1, g: 1, b: 1, a: 1}
   tentacleTexture: {fileID: 0}
   tentacleMaterial: {fileID: 2100000, guid: 3a34e7742ebd180bf9c3514544b30a79, type: 2}

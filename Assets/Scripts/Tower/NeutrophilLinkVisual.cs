@@ -10,6 +10,7 @@ public class NeutrophilLinkVisual : MonoBehaviour
     [SerializeField] private SpriteRenderer bodyRenderer;
     [SerializeField] private NeutrophilVisualConfig config;
     private NeutrophilVisualConfig settings;
+    private TowerInstance towerInstance;
     private bool ownsSettings;
     private bool subscribed;
     private GameObject runtimeRoot;
@@ -56,18 +57,23 @@ public class NeutrophilLinkVisual : MonoBehaviour
             settings = ScriptableObject.CreateInstance<NeutrophilVisualConfig>();
             ownsSettings = true;
         }
-        ApplyBodyArt();
+        towerInstance = GetComponent<TowerInstance>();
+        if (towerInstance != null) towerInstance.ConfigChanged += ApplyBodyArt;
+        ApplyBodyArt(towerInstance != null ? towerInstance.Config : null);
         if (tower != null && !subscribed)
         {
             tower.TargetKilled += HandleTargetKilled;
             subscribed = true;
         }
     }
-    private void ApplyBodyArt()
+    private void ApplyBodyArt(TowerConfig towerConfig)
     {
-        if (settings != null && settings.BodySprite != null && bodyRenderer != null)
+        if (settings == null || bodyRenderer == null) return;
+
+        Sprite bodySprite = settings.GetBodySprite(towerConfig);
+        if (bodySprite != null)
         {
-            bodyRenderer.sprite = settings.BodySprite;
+            bodyRenderer.sprite = bodySprite;
             bodyRenderer.color = settings.BodyTint;
         }
     }
@@ -234,7 +240,6 @@ public class NeutrophilLinkVisual : MonoBehaviour
         }
         GameStateController state = tower.GameState;
         if (settings == null || state == null || !state.CanSimulate) return;
-        ApplyBodyArt();
         float dt = Time.deltaTime;
         visualClock += dt;
         if (runtimeMaterial != null)
@@ -295,6 +300,7 @@ public class NeutrophilLinkVisual : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (towerInstance != null) towerInstance.ConfigChanged -= ApplyBodyArt;
         if (subscribed && tower != null)
         {
             tower.TargetKilled -= HandleTargetKilled;
